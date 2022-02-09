@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//#include <math.h>
+#include <math.h>
 
 #include "poly.h"
 
@@ -141,6 +141,7 @@ p_polyf_t multiplication_polynome_scalaire (p_polyf_t p, float alpha)
 {
   /* alpha * p1 */
   p_polyf_t res = creer_polynome (p->degre);
+  init_polynome(res, 0);
   for(int i = 0; i <= p->degre; i++){
     res->coeff[i] = alpha * p->coeff[i];
   }
@@ -154,7 +155,7 @@ float eval_polynome (p_polyf_t p, float x)
   */
   float res = 0.0 ;
   for(int i = 0; i <= p->degre; i++){
-    //res += p->coeff[i] * pow(x, i);
+    res += p->coeff[i] * pow(x, i);
   }
   return res ;
 }
@@ -163,8 +164,8 @@ p_polyf_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
 {
   /* p1 * p2 */
   
-  p_polyf_t res = creer_polynome (p1->degre);
-  res->degre = p1->degre + p2->degre;
+  p_polyf_t res = creer_polynome (p1->degre + p2->degre);
+  init_polynome(res, 0);
   for(int i = 0; i <= p1->degre; i++){
     for(int j = 0; j <= p2->degre; j++){
       res->coeff[i+j] += p1->coeff[i] * p2->coeff[j];
@@ -175,10 +176,12 @@ p_polyf_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
 
 p_polyf_t puissance_polynome (p_polyf_t p, int n)
 {
-  /* 
-     p^n*/
-  
- return NULL;
+  //p^n
+  p_polyf_t res = p;  
+  for(int i = 0; i < n; i++){
+    res = multiplication_polynomes(p, res);
+  }
+  return res;
 }
 
 p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
@@ -186,9 +189,6 @@ p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
   /*
     p O q
   */
-
-  return NULL ;
+p_polyf_t res = creer_polynome (p->degre);
+  return NULL;
 }
-
-
-
