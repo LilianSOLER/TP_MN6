@@ -16,7 +16,7 @@ test_poly.o: test_poly.c poly.h
 	gcc $(GCC_OPT) -c test_poly.c
 
 poly.o: poly.c poly.h
-	gcc $(GCC_OPT) -c poly.c
+	gcc $(GCC_OPT) -c poly.c 
 
 clean:
 	rm -f test_poly perf_poly *.o *~

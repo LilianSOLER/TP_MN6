@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//#include <math.h>
+
 #include "poly.h"
 
 #include <x86intrin.h>
@@ -63,12 +65,12 @@ p_polyf_t lire_polynome_float (char *nom_fichier)
   for (i = 0 ; i <= degre; i++)
     { 
       cr = fscanf (f, "%f", &p->coeff[i]) ;
-       if (cr != 1)
+      if (cr != 1)
     {
       fprintf (stderr, "erreur lecture coefficient %d\n", i) ;
       exit (-1) ;
     }
-       
+    
     }
 
   fclose (f) ;
@@ -148,26 +150,35 @@ p_polyf_t multiplication_polynome_scalaire (p_polyf_t p, float alpha)
 float eval_polynome (p_polyf_t p, float x)
 {
   /* 
-     valeur du polynome pour la valeur de x
+    valeur du polynome pour la valeur de x
   */
-
-  return 0.0 ;
+  float res = 0.0 ;
+  for(int i = 0; i <= p->degre; i++){
+    //res += p->coeff[i] * pow(x, i);
+  }
+  return res ;
 }
 
 p_polyf_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
 {
   /* p1 * p2 */
-
-  return NULL ;
+  
+  p_polyf_t res = creer_polynome (p1->degre);
+  res->degre = p1->degre + p2->degre;
+  for(int i = 0; i <= p1->degre; i++){
+    for(int j = 0; j <= p2->degre; j++){
+      res->coeff[i+j] += p1->coeff[i] * p2->coeff[j];
+    }
+  }
+  return res ;
 }
 
 p_polyf_t puissance_polynome (p_polyf_t p, int n)
 {
   /* 
-     p^n
-  */
-
-  return NULL ;
+     p^n*/
+  
+ return NULL;
 }
 
 p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)

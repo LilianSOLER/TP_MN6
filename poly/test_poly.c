@@ -31,5 +31,10 @@ int main (int argc, char **argv)
   int scalaire = 2;
   printf("%d * P1 = ", scalaire);
   ecrire_polynome_float(multiplication_polynome_scalaire(p1,scalaire));
+
+  printf("P1(%d) = %lf\n", scalaire,eval_polynome(p1,scalaire));
+
+  printf("P1 * P2 = ");
+  ecrire_polynome_float(multiplication_polynomes(p1,p2));
   
 }
