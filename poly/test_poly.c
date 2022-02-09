@@ -24,4 +24,12 @@ int main (int argc, char **argv)
     ajouter du code pour tester les fonctions
     sur les polynomes
   */
+  printf("\nTest :\n");
+  printf("P1 = P2 vaut : %d\n",egalite_polynome(p1,p2));
+  printf("P2 = P2 vaut : %d\n",egalite_polynome(p2,p2));
+
+  int scalaire = 2;
+  printf("%d * P1 = ", scalaire);
+  ecrire_polynome_float(multiplication_polynome_scalaire(p1,scalaire));
+  
 }

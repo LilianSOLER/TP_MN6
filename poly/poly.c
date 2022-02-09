@@ -97,8 +97,16 @@ int egalite_polynome (p_polyf_t p1, p_polyf_t p2)
   /*
     tester les deux polynomes p1 et p2
   */
-
-  return 0 ;
+  if(p1->degre != p2->degre)
+    return 0;
+  else
+    {
+      for(int i = 0; i <= p1->degre; i++){
+        if(p1->coeff[i] != p2->coeff[i])
+          return 0;
+      }
+  }
+  return 1;
 }
 
 p_polyf_t addition_polynome (p_polyf_t p1, p_polyf_t p2)
@@ -130,8 +138,11 @@ p_polyf_t addition_polynome (p_polyf_t p1, p_polyf_t p2)
 p_polyf_t multiplication_polynome_scalaire (p_polyf_t p, float alpha)
 {
   /* alpha * p1 */
-
-  return NULL ;
+  p_polyf_t res = creer_polynome (p->degre);
+  for(int i = 0; i <= p->degre; i++){
+    res->coeff[i] = alpha * p->coeff[i];
+  }
+  return res ;
 }
 
 float eval_polynome (p_polyf_t p, float x)
