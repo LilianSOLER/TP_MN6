@@ -40,5 +40,6 @@ int main (int argc, char **argv)
   printf("P1^n = ");
   ecrire_polynome_float(puissance_polynome(p1, scalaire));
 
-  
+  printf("P1 ° P2 = ");
+  ecrire_polynome_float(composition_polynome(p1,p2)); 
 }

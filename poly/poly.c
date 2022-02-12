@@ -89,7 +89,7 @@ void ecrire_polynome_float (p_polyf_t p)
       printf ("+ %f X^%d ", p->coeff [i], i) ;
     }
   
-  printf ("\n") ;
+  printf ("\n\n") ;
 
   return ;
 }
@@ -189,6 +189,10 @@ p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
   /*
     p O q
   */
-p_polyf_t res = creer_polynome (p->degre);
-  return NULL;
+  p_polyf_t res = creer_polynome (p->degre * q->degre);
+  init_polynome(res, 0);
+  for (int i = 0; i < p->degre; i++) {
+    res = addition_polynome(res, multiplication_polynome_scalaire(puissance_polynome(q, i), p->coeff[i]));
+  }
+  return res;
 }
