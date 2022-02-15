@@ -39,7 +39,7 @@ p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q) ;
 typedef struct polyf_creux_t {
   int degre ;
   float coeff;
-  p_polyf_creux_t *next;
+  polyf_creux_t *next;
 } polyf_creux_t, *p_polyf_creux_t;
 
 p_polyf_creux_t creer_polynome_creux (int degre) ;
