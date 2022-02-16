@@ -193,11 +193,16 @@ p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
   return res;
 }
 
+//POLYNOME CREUX
+
+//return a polynome_creux with one monome
 p_polyf_creux_t creer_polynome_creux (){
   p_polyf_creux_t p = malloc(sizeof(p_polyf_creux_t));
   p->monomes = malloc(sizeof(p_monome_t));  
   return p;
 }
+
+//destroy a polynome_creux and free the memory
 void detruire_polynome_creux (p_polyf_creux_t p){
   p_monome_t monome = p->monomes;
   while(monome != NULL){
@@ -207,8 +212,71 @@ void detruire_polynome_creux (p_polyf_creux_t p){
   }
   free(p);
 }
+
+//init the first monome of a polynome_creux at the value of x
 void init_polynome_creux (p_polyf_creux_t p, float x){
   p->monomes->coeff = x;
   p->monomes->degre = 0;
   p->monomes->next = NULL;
+}
+
+//return a bool representing the equality of the polynome_creux
+int egalite_polynome_creux (p_polyf_creux_t p1, p_polyf_creux_t p2){
+  p_monome_t m1 = p1->monomes;
+  p_monome_t m2 = p2->monomes;
+  while(m1 != NULL && m2 != NULL){//check each monome
+    if(m1->degre != m2->degre || m1->coeff != m2->coeff)//if one monome is different, the polynome_creux are different
+      return 0;
+    m1 = m1->next;
+    m2 = m2->next;
+  }
+  if(m1 != NULL || m2 != NULL)//if one of the polynome_creux is longer than the other, they are not equal
+    return 0;
+  return 1;
+}
+
+p_polyf_creux_t addition_polynome_creux (p_polyf_creux_t p1, p_polyf_creux_t p2){
+  p_polyf_creux_t res = creer_polynome_creux();
+  p_monome_t m1 = p1->monomes;
+  p_monome_t m2 = p2->monomes;
+  p_monome_t m3 = res->monomes;
+  while(m1 != NULL && m2 != NULL){//add each monome of p1 and p2
+    if(m1->degre == m2->degre){//if the monome have the same degree, we add them
+      m3->coeff = m1->coeff + m2->coeff;
+      m3->degre = m1->degre;
+      m3->next = NULL;
+      m1 = m1->next;
+      m2 = m2->next;
+      m3 = m3->next;
+    }
+    else if(m1->degre > m2->degre){//if the monome of p1 has a greater degree than the monome of p2, we add the monome of p1
+      m3->coeff = m1->coeff;
+      m3->degre = m1->degre;
+      m3->next = NULL;
+      m1 = m1->next;
+      m3 = m3->next;
+    }
+    else{ //if the monome of p2 has a greater degree than the monome of p1, we add the monome of p2
+      m3->coeff = m2->coeff;
+      m3->degre = m2->degre;
+      m3->next = NULL;
+      m2 = m2->next;
+      m3 = m3->next;
+    }
+  }
+  while(m1 != NULL){//add the rest of the monome of p1
+    m3->coeff = m1->coeff;
+    m3->degre = m1->degre;
+    m3->next = NULL;
+    m1 = m1->next;
+    m3 = m3->next;
+  }
+  while(m2 != NULL){//add the rest of the monome of p2
+    m3->coeff = m2->coeff;
+    m3->degre = m2->degre;
+    m3->next = NULL;
+    m2 = m2->next;
+    m3 = m3->next;
+  }
+  return res;
 }
