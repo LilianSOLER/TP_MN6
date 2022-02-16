@@ -36,13 +36,17 @@ p_polyf_t puissance_polynome (p_polyf_t p, int n) ;
 p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q) ;
 
 //POLYNOME CREUX
-typedef struct polyf_creux_t {
-  int degre ;
+typedef struct monome{
   float coeff;
-  p_polyf_creux_t *next;
+  int degre;
+  monome_t *next;
+} monome_t, *p_monome_t;
+
+typedef struct polyf_creux_t {
+  monome_t *monomes;
 } polyf_creux_t, *p_polyf_creux_t;
 
-p_polyf_creux_t creer_polynome_creux (int degre) ;
+p_polyf_creux_t creer_polynome_creux () ;
 void detruire_polynome_creux (p_polyf_creux_t p);
 void init_polynome_creux (p_polyf_creux_t p, float x);
 

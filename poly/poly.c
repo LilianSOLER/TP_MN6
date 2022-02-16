@@ -196,3 +196,23 @@ p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
   }
   return res;
 }
+
+p_polyf_creux_t creer_polynome_creux (){
+  p_polyf_creux_t p = malloc(sizeof(p_polyf_creux_t));
+  p->monomes = malloc(sizeof(p_monome_t));  
+  return p;
+}
+void detruire_polynome_creux (p_polyf_creux_t p){
+  p_monome_t monome = p->monomes;
+  while(monome != NULL){
+    p_monome_t tmp = monome;
+    monome = monome->next;
+    free(tmp);
+  }
+  free(p);
+}
+void init_polynome_creux (p_polyf_creux_t p, float x){
+  p->monomes->coeff = x;
+  p->monomes->degre = 0;
+  p->monomes->next = NULL;
+}
