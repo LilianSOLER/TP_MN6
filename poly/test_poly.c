@@ -8,9 +8,9 @@ int main (int argc, char **argv)
 {
   p_polyf_t p1, p2 ;
   
-  if (argc != 3)
+  if (argc != 5)
     {
-      fprintf (stderr, "deux paramètres (polynomes,fichiers) sont à passer \n") ;
+      fprintf (stderr, "quatre paramètres (polynomes,fichiers) sont à passer \n") ;
       exit (-1) ;
     }
       
@@ -42,4 +42,36 @@ int main (int argc, char **argv)
 
   printf("P1 ° P2 = ");
   ecrire_polynome_float(composition_polynome(p1,p2)); 
+
+  //test poly_creux
+  p_polyf_creux_t p1_creux, p2_creux;
+  
+  if (argc != 5)
+    {
+      fprintf (stderr, "quatre paramètres (polynomes,fichiers) sont à passer \n") ;
+      exit (-1) ;
+    }
+      
+  // p1_creux = lire_polynome_creux_float (argv [3]) ;
+  // p2_creux = lire_polynome_creux_float (argv [4]) ;
+  p1_creux = creer_polynome_creux();
+  p2_creux = creer_polynome_creux();
+  init_polynome_creux(p1_creux, 0);
+  init_polynome_creux(p2_creux, 0);
+  // monome_t *monome1, *monome2;
+  // monome1 = monome2 = malloc(sizeof(monome_t));
+  // monome1->degre = 1;
+  // monome1->coeff = 1;
+  // monome2->degre = 2;
+  // monome2->coeff = 2;
+  // monome2->next = NULL;
+  // monome1->next = monome2;
+  // p1_creux->monomes = monome1;
+  // //p2_creux->monomes = monome2;
+  
+  // ecrire_polynome_creux_float (p1_creux) ;
+  // //ecrire_polynome_creux_float (p2_creux) ;
+
+  printf("P1 = P2 vaut : %d\n",egalite_polynome(p1,p2));
+  printf("P2 = P2 vaut : %d\n",egalite_polynome(p2,p2));
 }

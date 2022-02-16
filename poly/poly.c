@@ -103,12 +103,13 @@ int egalite_polynome (p_polyf_t p1, p_polyf_t p2)
     {
       int i;
       for(i = 0; i <= p1->degre; i++)
-    {
+      {
       for(int i = 0; i <= p1->degre; i++){
         if(p1->coeff[i] != p2->coeff[i])
           return 0;
       }
-  }
+      }
+    }
   return 1;
 }
 
@@ -176,7 +177,7 @@ p_polyf_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
 p_polyf_t puissance_polynome (p_polyf_t p, int n)
 {
   p_polyf_t res = p;  
-  for(int i = 0; i < n; i++){ //multiply of p by itself n times
+  for(int i = 0; i < n - 1; i++){ //multiply of p by itself n times
     res = multiplication_polynomes(p, res);
   }
   return res;
@@ -195,10 +196,69 @@ p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
 
 //POLYNOME CREUX
 
+
+p_polyf_creux_t lire_polynome_creux_float (char *nom_fichier)
+{
+  FILE *f ;
+  p_polyf_creux_t p = creer_polynome_creux ();
+  int cr;
+
+  f = fopen (nom_fichier, "r") ;
+  if (f == NULL)
+    {
+      fprintf (stderr, "erreur ouverture %s \n", nom_fichier) ;
+      exit (-1) ;
+    }
+  
+  monome_t *currentMonome = p->monomes;
+  
+  while(currentMonome != NULL){
+      cr = fscanf (f, "%d %f",&(currentMonome->degre), &(currentMonome->coeff)) ;
+      if (cr != 2)
+      {
+        fprintf (stderr, "erreur lecture coefficient ou degre\n") ;
+        exit (-1) ;
+      }
+      monome_t *nextMonome = malloc(sizeof(monome_t));
+      nextMonome->next = NULL;
+      currentMonome->next = nextMonome;
+      currentMonome = nextMonome; 
+  }
+  fclose (f) ;
+
+  return p ;
+}
+
+void ecrire_polynome_creux_float (p_polyf_creux_t p)
+{
+  monome_t *currentMonome = p->monomes;
+  if(currentMonome == NULL){
+    printf("0\n");
+    return;
+  }
+  if(currentMonome->degre == 0){
+    printf("%f\n", currentMonome->coeff);
+    currentMonome = currentMonome->next;
+  }else{
+    printf("%fX^%d", currentMonome->coeff, currentMonome->degre);
+    currentMonome = currentMonome->next;
+  }
+
+  while(currentMonome != NULL){
+    {  
+      printf(" + %fX^%d\n", currentMonome->coeff, currentMonome->degre);
+      currentMonome = currentMonome->next;
+    }
+    printf ("\n\n");
+  }
+  return;
+}
+
 //return a polynome_creux with one monome
 p_polyf_creux_t creer_polynome_creux (){
   p_polyf_creux_t p = malloc(sizeof(p_polyf_creux_t));
   p->monomes = malloc(sizeof(p_monome_t));  
+  p->monomes->next = NULL;
   return p;
 }
 

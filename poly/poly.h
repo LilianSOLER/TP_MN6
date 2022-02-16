@@ -37,12 +37,12 @@ p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q) ;
 
 //POLYNOME CREUX
 typedef struct monome{
-  float coeff;
   int degre;
-  monome_t *next;
+  float coeff;
+  struct monome *next;
 } monome_t, *p_monome_t;
 
-typedef struct polyf_creux_t {
+typedef struct poly_creux_t {
   monome_t *monomes;
 } polyf_creux_t, *p_polyf_creux_t;
 
