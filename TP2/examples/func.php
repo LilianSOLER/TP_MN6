@@ -9,6 +9,17 @@ function csv_to_array($file){
 	return $res;
 }
 
+function compile_test(){
+  exec("cd .. ; ./make_src_examples.sh clean; ./make_src_examples.sh; cd examples");
+}
+
+function rewrite_csv($file){
+  $basename = explode(".", $file)[0];
+  exec("cp test_complexe_" . $basename . ".c test_complexe.c");
+  compile_test();
+  exec("./test_complexe > csv/" . $file);
+}
+
 
 function mult_complexe($c1, $c2){
   $r = $c1["re"] *  $c2["re"] - $c1["im"] *  $c2["im"];

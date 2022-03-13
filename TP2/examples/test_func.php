@@ -2,13 +2,20 @@
 require_once "func.php";
 
 // $MULT_CSV = ["test_mult_float.csv", "test_mult_double.csv"];
-$MULT_CSV = ["float" => "test_mult_float.csv", "double" => "test_mult_double.csv"];
+$MULT_CSV = ["float" => "mult_float.csv", "double" => "mult_double.csv"];
 
 function test_mult_complexe($tests){
   echo "Test mult_complexe() ...\n\n";
+
+  
+  foreach($tests as $file){
+    rewrite_csv($file);
+  }
+  
+  $arr = csv_to_array($file);
+
   foreach($tests as $title => $file){
     echo "Version " . $title . ":\n";
-    $arr = csv_to_array($file);
     $all_calcul_valid = true;
     $max_max_diff = 0;
     foreach($arr as $calc){
