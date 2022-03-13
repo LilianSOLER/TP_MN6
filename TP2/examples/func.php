@@ -30,3 +30,12 @@ function mult_complexe($c1, $c2){
   $i = $c1["re"] *  $c2["im"] + $c1["im"] *  $c2["re"];
   return ["re" => $r, "im" => $i];
 }
+
+function div_complexe($c1, $c2){
+  $denum = $c1["re"] ** 2 + $c2["re"] ** 2;
+  $r = $c1["re"] *  $c2["re"] + $c1["im"] *  $c2["im"];
+  $i = $c1["im"] *  $c2["re"] - $c1["re"] *  $c2["im"];
+  $r /= $denum;
+  $i /= $denum;
+  return ["re" => $r, "im" => $i];
+}
