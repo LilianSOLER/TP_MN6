@@ -13,13 +13,13 @@
 
 if [ -z "$1" ]
 then 
-  cd examples
+  cd src
   make
-  cd ../src
+  cd ../examples
   make
 else
-  cd examples
+  cd src
   make $1
-  cd ../src
+  cd ../examples
   make $1
 fi
