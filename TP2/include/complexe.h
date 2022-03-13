@@ -21,4 +21,9 @@ complexe_float_t div_complexe_float (const complexe_float_t c1, const complexe_f
 
 complexe_double_t div_complexe_double (const complexe_double_t c1, const complexe_double_t c2) ;
 
+//TESTs
+void test_mult_float();
+void test_mult_double();
+
+
 
