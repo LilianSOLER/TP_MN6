@@ -13,6 +13,10 @@ function compile_test(){
   exec("cd .. ; ./make_src_examples.sh clean; ./make_src_examples.sh; cd examples");
 }
 
+function clean(){
+  exec("cd .. ; ./make_src_examples.sh clean;");
+}
+
 function rewrite_csv($file){
   $basename = explode(".", $file)[0];
   exec("cp test_complexe_" . $basename . ".c test_complexe.c");

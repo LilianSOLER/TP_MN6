@@ -7,12 +7,13 @@ $MULT_CSV = ["float" => "mult_float.csv", "double" => "mult_double.csv"];
 function test_mult_complexe($tests){
   echo "Test mult_complexe() ...\n\n";
 
-  
   foreach($tests as $file){
     rewrite_csv($file);
   }
-  
   $arr = csv_to_array($file);
+  clean();
+
+  echo "\n";
 
   foreach($tests as $title => $file){
     echo "Version " . $title . ":\n";
