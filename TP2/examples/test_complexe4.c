@@ -3,44 +3,41 @@
 #include "mnblas.h"
 #include "complexe2.h"
 
-
-#define    NB_FOIS        4096
+#define NB_FOIS 4096
 
 #include "flop.h"
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
- complexe_float_t c1= {1.0, 2.0} ;
- complexe_float_t c2= {3.0, 6.0} ;
+  complexe_float_t c1 = {1.0, 2.0};
+  complexe_float_t c2 = {3.0, 6.0};
 
- complexe_double_t cd1 ;
- complexe_double_t cd2 ;
+  complexe_double_t cd1;
+  complexe_double_t cd2;
 
- struct timespec start, end ;
- int i ;
+  struct timespec start, end;
+  int i;
 
- init_flop_nano () ;
- 
- c1 = add_complexe_float (c1, c2) ;
+  init_flop_nano();
 
- printf ("c1.r %f c1.i %f\n", c1.real, c1.imaginary) ;
+  c1 = div_complexe_float(c1, c2);
 
- cd1 = (complexe_double_t) {10.0, 7.0} ;
- cd2 = (complexe_double_t) {25.0, 32.0} ;
+  printf("c1.r %f c1.i %f\n", c1.real, c1.imaginary);
 
- TOP_NANO(start);
- 
- for (i = 0 ; i < NB_FOIS; i++)
-   {
-     cd1 = add_complexe_double (cd1, cd2) ;
-   }
+  cd1 = (complexe_double_t){10.0, 7.0};
+  cd2 = (complexe_double_t){25.0, 32.0};
 
- TOP_NANO(end) ;
+  TOP_NANO(start);
 
- printf ("apres boucle cd1.real %f cd1.imaginary %f temps %e \n", cd1.real, cd1.imaginary, tdiff_nano(&start, &end)) ;
+  for (i = 0; i < NB_FOIS; i++)
+  {
+    cd1 = div_complexe_double(cd1, cd2);
+  }
 
- calcul_flop_nano ("calcul complexe ", NB_FOIS*2, tdiff_nano(&start,&end)) ;
- exit (0) ;
+  TOP_NANO(end);
+
+  printf("apres boucle cd1.real %f cd1.imaginary %f temps %e \n", cd1.real, cd1.imaginary, tdiff_nano(&start, &end));
+
+  calcul_flop_nano("calcul complexe ", NB_FOIS * 2, tdiff_nano(&start, &end));
+  exit(0);
 }
-
-
