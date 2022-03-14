@@ -1,0 +1,39 @@
+residu_tsc = 60 cycles 
+sdot nano  131072 operations 421860 cycles Performance 0.808 GFLOP/s
+sdot nano  131072 operations 421350 cycles Performance 0.809 GFLOP/s
+sdot nano  131072 operations 421320 cycles Performance 0.809 GFLOP/s
+sdot nano  131072 operations 421290 cycles Performance 0.809 GFLOP/s
+sdot nano  131072 operations 421290 cycles Performance 0.809 GFLOP/s
+sdot nano  131072 operations 421260 cycles Performance 0.809 GFLOP/s
+sdot nano  131072 operations 421290 cycles Performance 0.809 GFLOP/s
+sdot nano  131072 operations 421290 cycles Performance 0.809 GFLOP/s
+sdot nano  131072 operations 456870 cycles Performance 0.746 GFLOP/s
+sdot nano  131072 operations 421350 cycles Performance 0.809 GFLOP/s
+res = 131072.000000
+==========================================================
+residu_micro = 2.000000e-06
+sdot micro 131072 operations duree 0.0001420 seconde  Performance 0.923 GFLOP/s
+sdot micro 131072 operations duree 0.0001470 seconde  Performance 0.892 GFLOP/s
+sdot micro 131072 operations duree 0.0001470 seconde  Performance 0.892 GFLOP/s
+sdot micro 131072 operations duree 0.0001470 seconde  Performance 0.892 GFLOP/s
+sdot micro 131072 operations duree 0.0001430 seconde  Performance 0.917 GFLOP/s
+sdot micro 131072 operations duree 0.0001420 seconde  Performance 0.923 GFLOP/s
+sdot micro 131072 operations duree 0.0001530 seconde  Performance 0.857 GFLOP/s
+sdot micro 131072 operations duree 0.0001430 seconde  Performance 0.917 GFLOP/s
+sdot micro 131072 operations duree 0.0001470 seconde  Performance 0.892 GFLOP/s
+sdot micro 131072 operations duree 0.0001420 seconde  Performance 0.923 GFLOP/s
+res = 131072.000000
+==========================================================
+residu_tsc = 90 cycles 
+sdot nano  131072 operations 421350.0000000 cycles Performance 0.000 GFLOP/s
+sdot nano  131072 operations 421320.0000000 cycles Performance 0.000 GFLOP/s
+sdot nano  131072 operations 421290.0000000 cycles Performance 0.000 GFLOP/s
+sdot nano  131072 operations 421290.0000000 cycles Performance 0.000 GFLOP/s
+sdot nano  131072 operations 421620.0000000 cycles Performance 0.000 GFLOP/s
+sdot nano  131072 operations 421290.0000000 cycles Performance 0.000 GFLOP/s
+sdot nano  131072 operations 421320.0000000 cycles Performance 0.000 GFLOP/s
+sdot nano  131072 operations 421290.0000000 cycles Performance 0.000 GFLOP/s
+sdot nano  131072 operations 421290.0000000 cycles Performance 0.000 GFLOP/s
+sdot nano  131072 operations 421290.0000000 cycles Performance 0.000 GFLOP/s
+res = 131072.000000
+==========================================================
