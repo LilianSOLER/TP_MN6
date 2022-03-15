@@ -1,0 +1,16 @@
+residu_micro = 1.000000e-06
+c1.r -9.000000 c&.i 12.000000
+apres boucle cd1.real -nan cd1.imaginary -nan duree 0.000002 
+calcul complexe  1024 operations duree 0.0000020 seconde  Performance 0.512 GFLOP/s
+residu_micro = 2.000000e-06
+c1.r -9.000000 c1.i 12.000000
+apres boucle cd1.real -nan cd1.imaginary -nan 0.000005 
+calcul complexe  1024 operations duree 0.0000050 seconde  Performance 0.205 GFLOP/s
+residu_tsc = 60 cycles 
+c1.r -9.000000 c1.i 12.000000
+apres boucle cd1.real -nan cd1.imaginary -nan 7620 cycles 
+calcul complexe nano  1024 operations 7620 cycles Performance 0.349 GFLOP/s
+residu_nano = 1.886000e-06 
+c1.r -9.000000 c1.i 12.000000
+apres boucle cd1.real -nan cd1.imaginary -nan temps 2.235000e-05 
+calcul complexe  8192 operations 0.0000224 cycles Performance 0.367 GFLOP/s
