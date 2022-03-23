@@ -72,7 +72,7 @@ void calcul_flop_micro (char *message, unsigned int nb_operations_flottantes, fl
 
 void calcul_flop_nano (char *message, int nb_operations_flottantes, double duree)
 {
-  printf ("%s %d operations %.7f cycles Performance %5.3f GFLOP/s\n", message, nb_operations_flottantes, duree, ((double) nb_operations_flottantes) / duree) ;
+  printf ("%s %d operations %.7f cycles Performance %5.3f GFLOP/s\n", message, nb_operations_flottantes, duree, (((double) nb_operations_flottantes) / duree)/1000000000) ;
   return ;
 }
 

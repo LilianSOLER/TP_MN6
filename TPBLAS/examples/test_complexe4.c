@@ -4,7 +4,7 @@
 #include "complexe2.h"
 
 
-#define    NB_FOIS        512
+#define    NB_FOIS        4096
 
 #include "flop.h"
 
@@ -37,9 +37,9 @@ int main (int argc, char **argv)
 
  TOP_NANO(end) ;
 
- printf ("apres boucle cd1.real %f cd1.imaginary %f %f \n", cd1.real, cd1.imaginary, tdiff_nano(&start, &end)) ;
+ printf ("apres boucle cd1.real %f cd1.imaginary %f temps %e \n", cd1.real, cd1.imaginary, tdiff_nano(&start, &end)) ;
 
- calcul_flop_micro ("calcul complexe ", NB_FOIS*2, tdiff_nano(&start,&end)) ;
+ calcul_flop_nano ("calcul complexe ", NB_FOIS*2, tdiff_nano(&start,&end)) ;
  exit (0) ;
 }
 
