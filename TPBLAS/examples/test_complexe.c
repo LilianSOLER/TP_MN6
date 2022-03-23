@@ -22,7 +22,9 @@ int main (int argc, char **argv)
 
  init_flop_micro () ;
  
- c1 = add_complexe_float (c1, c2) ;
+ //c1 = add_complexe_float (c1, c2) ;
+ //c1=mult_complexe_float(c1,c2);
+ c1=div_complexe_float(c1,c2);
 
  printf ("c1.r %f c&.i %f\n", c1.real, c1.imaginary) ;
 
@@ -34,7 +36,9 @@ int main (int argc, char **argv)
  
  for (i = 0 ; i < NB_FOIS; i++)
    {
-     cd1 = add_complexe_double (cd1, cd2) ;
+     //cd1 = add_complexe_double (cd1, cd2) ;
+     //cd1=mult_complexe_double(cd1,cd2);
+      cd1=div_complexe_double(cd1,cd2);
    }
 
  TOP_MICRO(end) ;
