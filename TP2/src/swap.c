@@ -35,7 +35,21 @@ void mncblas_dswap(const int N, double *X, const int incX,
 void mncblas_cswap(const int nElmts, void *X, const int incX,
                    void *Y, const int incY)
 {
-
+complexe_float_t save;
+  complexe_float_t *X_tmp = (complexe_float_t *) X;
+  complexe_float_t *Y_tmp = (complexe_float_t *) Y;
+  for (int i = 0, j = 0; ((i < N) && (j < N)); i += incX, j += incY)
+  {
+    save.real = Y_tmp[j].real;
+    save.imaginary = Y_tmp[j].imaginary;
+    Y_tmp[j].real = X_tmp[i].real;
+    Y_tmp[j].imaginary = X_tmp[i].imaginary;
+    X_tmp[i].real = save.real;
+    X_tmp[i].imaginary = save.imaginary;
+  }
+  /*
+  X=X_tmp;
+  Y=Y_tmp;*/
   return;
 }
 
@@ -54,5 +68,8 @@ void mncblas_zswap(const int N, void *X, const int incX,
     X_tmp[i].real = save.real;
     X_tmp[i].imaginary = save.imaginary;
   }
+  /*
+  X=X_tmp;
+  Y=Y_tmp;*/
   return;
 }
