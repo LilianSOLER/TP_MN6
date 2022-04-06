@@ -21,7 +21,7 @@ flop.o: flop.c flop.h
 test_dot_dyn: test_dot.o flop.o
 	gcc -o test_dot_dyn flop.o test_dot.o $(OPTIONS_LINK_DYN)
 
-test_dot.o: test_dot.c $(INC_DIR)/mnblas.h
+test_dot.o: test_dot.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h
 	gcc $(OPTIONS_COMPIL) -c test_dot.c
 
 test_complexe.o: test_complexe.c  $(INC_DIR)/complexe.h

@@ -6,7 +6,7 @@ $MULT_CSV = ["float" => "mult_float.csv", "double" => "mult_double.csv"];
 
 function test_mult_complexe($tests){
   echo "Test mult_complexe() ...\n\n";
-
+  
   foreach($tests as $file){
     rewrite_csv($file);
   }
