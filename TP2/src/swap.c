@@ -47,7 +47,12 @@ void mncblas_zswap(const int N, void *X, const int incX,
   complexe_double_t *Y_tmp = (complexe_double_t *) Y;
   for (int i = 0, j = 0; ((i < N) && (j < N)); i += incX, j += incY)
   {
-    printf("%lf", X_tmp[i].real);
+    save.real = Y_tmp[j].real;
+    save.imaginary = Y_tmp[j].imaginary;
+    Y_tmp[j].real = X_tmp[i].real;
+    Y_tmp[j].imaginary = X_tmp[i].imaginary;
+    X_tmp[i].real = save.real;
+    X_tmp[i].imaginary = save.imaginary;
   }
   return;
 }
