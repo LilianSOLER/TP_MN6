@@ -12,9 +12,11 @@
 
 typedef float vfloat[VECSIZE];
 typedef double vdouble[VECSIZE];
+typedef complexe_double_t vcomp_double[VECSIZE];
 
 vfloat vec1, vec2;
 vdouble vec1d, vec2d;
+vcomp_double vec1cd, vec2cd;
 
 void vector_init(vfloat V, float x)
 {
@@ -36,6 +38,19 @@ void vector_init_double_random(vdouble V)
   return;
 }
 
+void vector_init_comp_double_random(vcomp_double V)
+{
+  register unsigned int i;
+
+  for (i = 0; i < VECSIZE; i++)
+  {
+    V[i].real = rand() / (double)RAND_MAX;
+    V[i].imaginary = rand() / (double)RAND_MAX;
+  }
+
+  return;
+}
+
 void vector_print(vfloat V)
 {
   register unsigned int i;
@@ -53,6 +68,17 @@ void vector_print_double(vdouble V)
 
   for (i = 0; i < VECSIZE; i++)
     printf("%lf ", V[i]);
+  printf("\n");
+
+  return;
+}
+
+void vector_print_comp_double(vcomp_double V){
+  register unsigned int i;
+
+  for (i = 0; i < VECSIZE; i++)
+    printf("%lf + %lf i ", V[i].real, V[i].imaginary);
+
   printf("\n");
 
   return;
@@ -140,7 +166,8 @@ void test_swap_double()
   printf("==========================================================\n");
 }
 
-void perf_swap_double(){
+void perf_swap_double()
+{
   unsigned long long int start_tsc, end_tsc;
 
   init_flop_tsc();
@@ -159,9 +186,29 @@ void perf_swap_double(){
   printf("==========================================================\n");
 }
 
+void test_swap_comp_double()
+{
+  printf("Test swap comp double\n");
+  srand(time(NULL));
+  for (int i = 0; i < NB_FOIS; i++)
+  {
+    vector_init_comp_double_random(vec1cd);
+    vector_init_comp_double_random(vec2cd);
+    vector_print_comp_double(vec1cd);
+    vector_print_comp_double(vec2cd);
+    printf("\n");
+    mncblas_cswap(VECSIZE, vec1cd, 2, vec2cd, 2);
+    vector_print_comp_double(vec1cd);
+    vector_print_comp_double(vec2cd);
+    printf("\n");
+  }
+  printf("==========================================================\n");
+}
+
 int main(int argc, char **argv)
 {
-  //basic_main();
-  //test_swap_double();
-  perf_swap_double();
+  // basic_main();
+  // test_swap_double();
+  // perf_swap_double();
+  test_swap_comp_double();
 }
