@@ -1,0 +1,12 @@
+residu_tsc = 90 cycles 
+swapd nano 131072 operations 366840 cycles Performance 0.929 GFLOP/s
+swapd nano 131072 operations 367680 cycles Performance 0.927 GFLOP/s
+swapd nano 131072 operations 379530 cycles Performance 0.898 GFLOP/s
+swapd nano 131072 operations 382320 cycles Performance 0.891 GFLOP/s
+swapd nano 131072 operations 492900 cycles Performance 0.691 GFLOP/s
+swapd nano 131072 operations 538350 cycles Performance 0.633 GFLOP/s
+swapd nano 131072 operations 540390 cycles Performance 0.631 GFLOP/s
+swapd nano 131072 operations 545940 cycles Performance 0.624 GFLOP/s
+swapd nano 131072 operations 527640 cycles Performance 0.646 GFLOP/s
+swapd nano 131072 operations 542220 cycles Performance 0.629 GFLOP/s
+==========================================================
