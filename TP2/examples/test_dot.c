@@ -253,7 +253,7 @@ void test_comp_float()
   }
   printf("==========================================================\n");
 }
-void perf_omp_float()
+void perf_comp_float()
 {
   unsigned long long int start_tsc, end_tsc;
 
@@ -320,5 +320,5 @@ void perf_comp_double()
 
 int main(int argc, char **argv)
 {
-  perf_float();
+  perf_comp_double();
 }
