@@ -174,7 +174,7 @@ void test(int type, int fonction)
         mncblas_zswap(VECSIZE, vec1cd, 1, vec2cd, 1);
         break;
       case 2:
-        // mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
+        mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
         break;
       }
       vector_print_comp_double(vec1cd);
@@ -287,9 +287,9 @@ void perf(int type, int fonction)
         break;
       case 2:
         start_tsc = _rdtsc();
-        // mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
+        mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
         end_tsc = _rdtsc();
-        // calcul_flop_tsc("mncblas_zcopy", 2 * VECSIZE,  end_tsc - start_tsc);
+        calcul_flop_tsc("mncblas_zcopy", 2 * VECSIZE,  end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -303,5 +303,5 @@ void perf(int type, int fonction)
 
 int main(int argc, char **argv)
 {
-  perf(3, 2);
+  perf(4, 2);
 }

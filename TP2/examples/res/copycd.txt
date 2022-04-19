@@ -1,0 +1,12 @@
+residu_tsc = 90 cycles 
+mncblas_zcopy 20 operations 870 cycles Performance 0.060 GFLOP/s
+mncblas_zcopy 20 operations 300 cycles Performance 0.173 GFLOP/s
+mncblas_zcopy 20 operations 240 cycles Performance 0.217 GFLOP/s
+mncblas_zcopy 20 operations 210 cycles Performance 0.248 GFLOP/s
+mncblas_zcopy 20 operations 210 cycles Performance 0.248 GFLOP/s
+mncblas_zcopy 20 operations 210 cycles Performance 0.248 GFLOP/s
+mncblas_zcopy 20 operations 210 cycles Performance 0.248 GFLOP/s
+mncblas_zcopy 20 operations 210 cycles Performance 0.248 GFLOP/s
+mncblas_zcopy 20 operations 210 cycles Performance 0.248 GFLOP/s
+mncblas_zcopy 20 operations 150 cycles Performance 0.347 GFLOP/s
+==========================================================
