@@ -171,7 +171,26 @@ void basic_main()
   printf("==========================================================\n");
 }
 
-void test_swap_ou_copy_double()
+void perf_float(){
+  unsigned long long int start_tsc, end_tsc;
+
+  init_flop_tsc();
+
+  for (int i = 0; i < NB_FOIS; i++)
+  {
+    vector_init(vec1, 1.0);
+    vector_init(vec2, 2.0);
+
+    start_tsc = _rdtsc();
+    mncblas_sswap(VECSIZE, vec1, 1, vec2, 1);
+    end_tsc = _rdtsc();
+
+    calcul_flop_tsc("swaps nano", 2 * VECSIZE, end_tsc - start_tsc);
+  }
+  printf("==========================================================\n");
+}
+
+void test_double()
 {
   printf("Test swap  double\n");
   //  printf("Test swap  double\n");
@@ -193,7 +212,7 @@ void test_swap_ou_copy_double()
   printf("==========================================================\n");
 }
 
-void perf_swap_ou_copy_double()
+void perf_double()
 {
   unsigned long long int start_tsc, end_tsc;
 
@@ -213,7 +232,7 @@ void perf_swap_ou_copy_double()
   }
   printf("==========================================================\n");
 }
-void test_swap_ou_copy_comp_float()
+void test_comp_float()
 {
   printf("Test swap comp float\n");
     //  printf("Test swap comp float\n");
@@ -234,7 +253,7 @@ void test_swap_ou_copy_comp_float()
   }
   printf("==========================================================\n");
 }
-void perf_swap_comp_float()
+void perf_omp_float()
 {
   unsigned long long int start_tsc, end_tsc;
 
@@ -242,8 +261,8 @@ void perf_swap_comp_float()
 
   for (int i = 0; i < NB_FOIS; i++)
   {
-    vector_init_float_random(vec1cf);
-    vector_init_float_random(vec2cf);
+    vector_init_comp_float_random(vec1cf);
+    vector_init_comp_float_random(vec2cf);
 
     start_tsc = _rdtsc();
     mncblas_cswap(VECSIZE, vec1cf, 1, vec2cf, 1);
@@ -255,7 +274,7 @@ void perf_swap_comp_float()
   }
   printf("==========================================================\n");
 }
-void test_swap_ou_copy_comp_double()
+void test_comp_double()
 {
   printf("Test swap comp double\n");
   //  printf("Test swap comp double\n");
@@ -277,7 +296,7 @@ void test_swap_ou_copy_comp_double()
   }
   printf("==========================================================\n");
 }
-void perf_swap_comp_double()
+void perf_comp_double()
 {
   unsigned long long int start_tsc, end_tsc;
 
@@ -285,8 +304,8 @@ void perf_swap_comp_double()
 
   for (int i = 0; i < NB_FOIS; i++)
   {
-    vector_init_double_random(vec1cd);
-    vector_init_double_random(vec2cd);
+    vector_init_comp_double_random(vec1cd);
+    vector_init_comp_double_random(vec2cd);
 
     start_tsc = _rdtsc();
     mncblas_zswap(VECSIZE, vec1cd, 1, vec2cd, 1);
@@ -301,9 +320,5 @@ void perf_swap_comp_double()
 
 int main(int argc, char **argv)
 {
-  // basic_main();
-  // test_swap_double();
-  // perf_swap_double();
-  test_swap_comp_double();
-  //perf_swap_comp_double()
+  perf_float();
 }

@@ -32,7 +32,7 @@ void mncblas_dswap(const int N, double *X, const int incX,
   return;
 }
 
-void mncblas_cswap(const int nElmts, void *X, const int incX,
+void mncblas_cswap(const int N, void *X, const int incX,
                    void *Y, const int incY)
 {
 complexe_float_t save;

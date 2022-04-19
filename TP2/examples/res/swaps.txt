@@ -1,0 +1,12 @@
+residu_tsc = 90 cycles 
+swaps nano 20 operations 900 cycles Performance 0.058 GFLOP/s
+swaps nano 20 operations 390 cycles Performance 0.133 GFLOP/s
+swaps nano 20 operations 120 cycles Performance 0.433 GFLOP/s
+swaps nano 20 operations 120 cycles Performance 0.433 GFLOP/s
+swaps nano 20 operations 120 cycles Performance 0.433 GFLOP/s
+swaps nano 20 operations 120 cycles Performance 0.433 GFLOP/s
+swaps nano 20 operations 150 cycles Performance 0.347 GFLOP/s
+swaps nano 20 operations 120 cycles Performance 0.433 GFLOP/s
+swaps nano 20 operations 120 cycles Performance 0.433 GFLOP/s
+swaps nano 20 operations 120 cycles Performance 0.433 GFLOP/s
+==========================================================
