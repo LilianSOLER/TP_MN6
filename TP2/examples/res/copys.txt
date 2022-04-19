@@ -1,0 +1,12 @@
+residu_tsc = 60 cycles 
+copys nano 20 operations 450 cycles Performance 0.116 GFLOP/s
+copys nano 20 operations 330 cycles Performance 0.158 GFLOP/s
+copys nano 20 operations 90 cycles Performance 0.578 GFLOP/s
+copys nano 20 operations 90 cycles Performance 0.578 GFLOP/s
+copys nano 20 operations 90 cycles Performance 0.578 GFLOP/s
+copys nano 20 operations 120 cycles Performance 0.433 GFLOP/s
+copys nano 20 operations 90 cycles Performance 0.578 GFLOP/s
+copys nano 20 operations 90 cycles Performance 0.578 GFLOP/s
+copys nano 20 operations 120 cycles Performance 0.433 GFLOP/s
+copys nano 20 operations 120 cycles Performance 0.433 GFLOP/s
+==========================================================
