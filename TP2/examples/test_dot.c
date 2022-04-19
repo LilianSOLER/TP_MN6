@@ -159,7 +159,7 @@ void test(int type, int fonction)
         mncblas_cswap(VECSIZE, vec1cf, 1, vec2cf, 1);
         break;
       case 2:
-        // mncblas_ccopy(VECSIZE, vec1cf, 1, vec2cf, 1);
+        mncblas_ccopy(VECSIZE, vec1cf, 1, vec2cf, 1);
         break;
       }
       vector_print_comp_float(vec1cf);
@@ -267,9 +267,9 @@ void perf(int type, int fonction)
         break;
       case 2:
         start_tsc = _rdtsc();
-        // mncblas_ccopy(VECSIZE, vec1cf, 1, vec2cf, 1);
+        mncblas_ccopy(VECSIZE, vec1cf, 1, vec2cf, 1);
         end_tsc = _rdtsc();
-        // calcul_flop_tsc("mncblas_ccopy", 2 * VECSIZE,  end_tsc - start_tsc);
+        calcul_flop_tsc("mncblas_ccopy", 2 * VECSIZE,  end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -303,5 +303,5 @@ void perf(int type, int fonction)
 
 int main(int argc, char **argv)
 {
-  perf(2, 2);
+  perf(3, 2);
 }
