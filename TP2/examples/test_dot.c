@@ -190,7 +190,7 @@ void perf(int type, int fonction)
 {
   unsigned long long int start_tsc, end_tsc;
 
-  init_flop_nano();
+  init_flop_tsc();
 
   for (int i = 0; i < NB_FOIS; i++)
   {
@@ -223,13 +223,13 @@ void perf(int type, int fonction)
         start_tsc = _rdtsc();
         mncblas_sswap(VECSIZE, vec1, 1, vec2, 1);
         end_tsc = _rdtsc();
-        calcul_flop_nano("mncblas_sswap", 2 * VECSIZE, end_tsc - start_tsc);
+        calcul_flop_tsc("mncblas_sswap", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       case 2:
         start_tsc = _rdtsc();
         mncblas_scopy(VECSIZE, vec1, 1, vec2, 1);
         end_tsc = _rdtsc();
-        calcul_flop_nano("mncblas_scopy", 2 * VECSIZE, end_tsc - start_tsc);
+        calcul_flop_tsc("mncblas_scopy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -243,15 +243,13 @@ void perf(int type, int fonction)
         start_tsc = _rdtsc();
         mncblas_dswap(VECSIZE, vec1d, 1, vec2d, 1);
         end_tsc = _rdtsc();
-        calcul_flop_nano("mncblas_dswap", 2 * VECSIZE, end_tsc - start_tsc);
+        calcul_flop_tsc("mncblas_dswap", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       case 2:
         start_tsc = _rdtsc();
         mncblas_dcopy(VECSIZE, vec1d, 1, vec2d, 1);
         end_tsc = _rdtsc();
-        printf("%llu %llu\n", end_tsc, start_tsc);
-        printf("%llu\n", end_tsc - start_tsc);
-        calcul_flop_nano("mncblas_dcopy", 2 * VECSIZE, end_tsc - start_tsc);
+        calcul_flop_tsc("mncblas_dcopy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -265,13 +263,13 @@ void perf(int type, int fonction)
         start_tsc = _rdtsc();
         mncblas_cswap(VECSIZE, vec1cf, 1, vec2cf, 1);
         end_tsc = _rdtsc();
-        calcul_flop_nano("mncblas_cswap", 2 * VECSIZE, end_tsc - start_tsc);
+        calcul_flop_tsc("mncblas_cswap", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       case 2:
         start_tsc = _rdtsc();
         // mncblas_ccopy(VECSIZE, vec1cf, 1, vec2cf, 1);
         end_tsc = _rdtsc();
-        // calcul_flop_nano("mncblas_ccopy", 2 * VECSIZE,  end_tsc - start_tsc);
+        // calcul_flop_tsc("mncblas_ccopy", 2 * VECSIZE,  end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -285,13 +283,13 @@ void perf(int type, int fonction)
         start_tsc = _rdtsc();
         mncblas_zswap(VECSIZE, vec1cd, 1, vec2cd, 1);
         end_tsc = _rdtsc();
-        calcul_flop_nano("mncblas_zswap", 2 * VECSIZE, end_tsc - start_tsc);
+        calcul_flop_tsc("mncblas_zswap", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       case 2:
         start_tsc = _rdtsc();
         // mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
         end_tsc = _rdtsc();
-        // calcul_flop_nano("mncblas_zcopy", 2 * VECSIZE,  end_tsc - start_tsc);
+        // calcul_flop_tsc("mncblas_zcopy", 2 * VECSIZE,  end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -305,5 +303,5 @@ void perf(int type, int fonction)
 
 int main(int argc, char **argv)
 {
-  perf(2, 1);
+  perf(2, 2);
 }
