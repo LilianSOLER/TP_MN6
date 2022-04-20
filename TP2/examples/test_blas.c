@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "mnblas.h"
 #include "complexe.h"
@@ -323,7 +324,82 @@ void perf(int type, int fonction)
   printf("==========================================================\n");
 }
 
-int main(int argc, char **argv)
+void print_usage()
 {
-  perf(1, 3);
+  printf("Usage : ./test_blas <test/perf> <type> <fonction>\n");
+  printf("type : 1 -> float\n");
+  printf("       2 -> double\n");
+  printf("       3 -> comp_float\n");
+  printf("       4 -> comp_double\n");
+  printf("fonction : 1 -> swap\n");
+  printf("           2 -> copy\n");
+  printf("           3 -> dot\n");
+  exit(1);
+}
+
+void launch_things(int *type, int *fonction, int argc, char *argv[])
+{
+  if (argc != 4)
+  {
+    print_usage();
+  }
+  else
+  {
+
+    if (strcmp(argv[2], "float") == 0)
+    {
+      *type = 1;
+    }
+    else if (strcmp(argv[2], "double") == 0)
+    {
+      *type = 2;
+    }
+    else if (strcmp(argv[2], "comp_float") == 0)
+    {
+      *type = 3;
+    }
+    else if (strcmp(argv[2], "comp_double") == 0)
+    {
+      *type = 4;
+    }
+    else
+    {
+      print_usage();
+    }
+
+    if (strcmp(argv[3], "swap") == 0)
+    {
+      *fonction = 1;
+    }
+    else if (strcmp(argv[3], "copy") == 0)
+    {
+      *fonction = 2;
+    }
+    else if (strcmp(argv[3], "dot") == 0)
+    {
+      *fonction = 3;
+    }
+    else
+    {
+      print_usage();
+    }
+
+    if (*type != 0 && *fonction != 0)
+    {
+      if (strcmp(argv[1], "test") == 0)
+        test(*type, *fonction);
+      else if (strcmp(argv[1], "perf") == 0)
+        perf(*type, *fonction);
+      else
+        print_usage();
+    }
+  }
+}
+
+int main(int argc, char *argv[])
+{
+  int type = 0;     // 1: float, 2: double, 3: complex float, 4: complex double
+  int fonction = 0; // 1: swap, 2: copy, 3: dot
+
+  launch_things(&type, &fonction, argc, argv);
 }
