@@ -35,7 +35,7 @@ void vector_init_double_random(vdouble V)
   register unsigned int i;
 
   for (i = 0; i < VECSIZE; i++)
-    V[i] = rand() / (double)RAND_MAX;
+    V[i] = rand() % 100;
 
   return;
 }
@@ -45,8 +45,8 @@ void vector_init_comp_float_random(vcomp_float V)
 
   for (i = 0; i < VECSIZE; i++)
   {
-    V[i].real = rand() / (float)RAND_MAX;
-    V[i].imaginary = rand() / (float)RAND_MAX;
+    V[i].real = rand() % 100;
+    V[i].imaginary = rand() % 100;
   }
 
   return;
@@ -57,8 +57,8 @@ void vector_init_comp_double_random(vcomp_double V)
 
   for (i = 0; i < VECSIZE; i++)
   {
-    V[i].real = rand() / (double)RAND_MAX;
-    V[i].imaginary = rand() / (double)RAND_MAX;
+    V[i].real = rand() % 100;
+    V[i].imaginary = rand() % 100;
   }
 
   return;
@@ -110,6 +110,8 @@ void vector_print_comp_double(vcomp_double V)
 
 void test(int type, int fonction)
 {
+  float res_float = 0;
+  double res_double = 0;
   printf("Test\n");
   srand(time(NULL));
   for (int i = 0; i < NB_FOIS; i++)
@@ -129,6 +131,10 @@ void test(int type, int fonction)
       case 2:
         mncblas_scopy(VECSIZE, vec1, 1, vec2, 1);
         break;
+      case 3:
+        res_float = mncblas_sdot(VECSIZE, vec1, 1, vec2, 1);
+        printf("%f\n", res_float);
+        break;
       }
       vector_print(vec1);
       vector_print(vec2);
@@ -145,6 +151,10 @@ void test(int type, int fonction)
         break;
       case 2:
         mncblas_dcopy(VECSIZE, vec1d, 1, vec2d, 1);
+        break;
+      case 3:
+        res_double = mncblas_ddot(VECSIZE, vec1d, 1, vec2d, 1);
+        printf("%lf\n", res_double);
         break;
       }
       vector_print_double(vec1d);
@@ -231,6 +241,12 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mncblas_scopy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 3:
+        start_tsc = _rdtsc();
+        mncblas_sdot(VECSIZE, vec1, 1, vec2, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_sdot", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -251,6 +267,12 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mncblas_dcopy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 3:
+        start_tsc = _rdtsc();
+        mncblas_ddot(VECSIZE, vec1d, 1, vec2d, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_ddot", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -269,7 +291,7 @@ void perf(int type, int fonction)
         start_tsc = _rdtsc();
         mncblas_ccopy(VECSIZE, vec1cf, 1, vec2cf, 1);
         end_tsc = _rdtsc();
-        calcul_flop_tsc("mncblas_ccopy", 2 * VECSIZE,  end_tsc - start_tsc);
+        calcul_flop_tsc("mncblas_ccopy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -289,7 +311,7 @@ void perf(int type, int fonction)
         start_tsc = _rdtsc();
         mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
         end_tsc = _rdtsc();
-        calcul_flop_tsc("mncblas_zcopy", 2 * VECSIZE,  end_tsc - start_tsc);
+        calcul_flop_tsc("mncblas_zcopy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -303,5 +325,5 @@ void perf(int type, int fonction)
 
 int main(int argc, char **argv)
 {
-  perf(4, 2);
+  perf(1, 3);
 }
