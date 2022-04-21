@@ -6,7 +6,7 @@
 
 #include "flop.h"
 
-#define VECSIZE 4
+#define VECSIZE 3
 // #define VECSIZE 10
 
 #define NB_FOIS 10
@@ -144,6 +144,10 @@ void test(int type, int fonction)
         res_float = mnblas_sasum(VECSIZE, vec1, 1);
         printf("%f\n", res_float);
         break;
+      case 8:
+        res_float = mnblas_snrm2(VECSIZE, vec1, 1);
+        printf("%f\n", res_float);
+        break;
       }
       vector_print(vec1);
       vector_print(vec2);
@@ -172,6 +176,10 @@ void test(int type, int fonction)
         res_double = mnblas_dasum(VECSIZE, vec1d, 1);
         printf("%lf\n", res_double);
         break;
+      case 8:
+        res_double = mnblas_dnrm2(VECSIZE, vec1d, 1);
+        printf("%lf\n", res_double);
+        break;
       }
       vector_print_double(vec1d);
       vector_print_double(vec2d);
@@ -179,6 +187,8 @@ void test(int type, int fonction)
     case 3:
       vector_init_comp_float_random(vec1cf);
       vector_init_comp_float_random(vec2cf);
+      vector_print_comp_float(vec1cf);
+      vector_print_comp_float(vec2cf);
       switch (fonction)
       {
       case 1:
@@ -195,6 +205,10 @@ void test(int type, int fonction)
         res_float = mnblas_scasum(VECSIZE, vec1cf, 1);
         printf("%f\n", res_float);
         break;
+      case 8:
+        res_float = mnblas_scnrm2(VECSIZE, vec1cf, 1);
+        printf("%f\n", res_float);
+        break;
       }
       vector_print_comp_float(vec1cf);
       vector_print_comp_float(vec2cf);
@@ -202,6 +216,8 @@ void test(int type, int fonction)
     case 4:
       vector_init_comp_double_random(vec1cd);
       vector_init_comp_double_random(vec2cd);
+      vector_print_comp_double(vec1cd);
+      vector_print_comp_double(vec2cd);
       switch (fonction)
       {
       case 1:
@@ -212,6 +228,10 @@ void test(int type, int fonction)
         break;
       case 5:
         res_double = mnblas_dzasum(VECSIZE, vec1cd, 1);
+        printf("%lf\n", res_double);
+        break;
+      case 8:
+        res_double = mnblas_dznrm2(VECSIZE, vec1cd, 1);
         printf("%lf\n", res_double);
         break;
       }
@@ -287,6 +307,12 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_sasum", VECSIZE, end_tsc - start_tsc);
         break;
+      case 8:
+        start_tsc = _rdtsc();
+        mnblas_snrm2(VECSIZE, vec1, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_snrm2", VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -325,6 +351,12 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_dasum", VECSIZE, end_tsc - start_tsc);
         break;
+      case 8:
+        start_tsc = _rdtsc();
+        mnblas_dnrm2(VECSIZE, vec1d, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_dnrm2", VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -350,6 +382,12 @@ void perf(int type, int fonction)
         mnblas_scasum(VECSIZE, vec1cf, 1);
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_scasum", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
+      case 8:
+        start_tsc = _rdtsc();
+        mnblas_scnrm2(VECSIZE, vec1cf, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_scnrm2", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -377,6 +415,12 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_dzasum", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 8:
+        start_tsc = _rdtsc();
+        mnblas_dznrm2(VECSIZE, vec1cd, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_dznrm2", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -399,6 +443,7 @@ void print_usage()
   printf("           3 -> dot\n");
   printf("           4 -> axpy\n");
   printf("           5 -> asum\n");
+  printf("           8 -> nrm2\n");
   exit(1);
 }
 
@@ -451,6 +496,10 @@ void launch_things(int *type, int *fonction, int argc, char *argv[])
     else if (strcmp(argv[3], "asum") == 0)
     {
       *fonction = 5;
+    }
+    else if (strcmp(argv[3], "nrm2") == 0)
+    {
+      *fonction = 8;
     }
     else
     {

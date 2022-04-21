@@ -1,0 +1,12 @@
+residu_tsc = 90 cycles 
+mnblas_scnrm2 6 operations 1890 cycles Performance 0.008 GFLOP/s
+mnblas_scnrm2 6 operations 1110 cycles Performance 0.014 GFLOP/s
+mnblas_scnrm2 6 operations 150 cycles Performance 0.104 GFLOP/s
+mnblas_scnrm2 6 operations 180 cycles Performance 0.087 GFLOP/s
+mnblas_scnrm2 6 operations 150 cycles Performance 0.104 GFLOP/s
+mnblas_scnrm2 6 operations 180 cycles Performance 0.087 GFLOP/s
+mnblas_scnrm2 6 operations 210 cycles Performance 0.074 GFLOP/s
+mnblas_scnrm2 6 operations 570 cycles Performance 0.027 GFLOP/s
+mnblas_scnrm2 6 operations 570 cycles Performance 0.027 GFLOP/s
+mnblas_scnrm2 6 operations 180 cycles Performance 0.087 GFLOP/s
+==========================================================
