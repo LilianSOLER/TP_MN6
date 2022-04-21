@@ -10,16 +10,16 @@ OPTIM=-O2 -fopenmp
 OPTIONS=-O2 -Wall -fPIC $(OPTIM) -I$(INC_DIR)
 # Bibliothèque statique
 
-libmnblas.a: copy.o swap.o dot.o axpy.o complexe.o
+libmnblas.a: copy.o swap.o dot.o axpy.o asum.o complexe.o
 	rm -f libmnblas.a $(LIB_DIR)/libmnblas.a
-	ar -r libmnblas.a copy.o swap.o dot.o axpy.o complexe.o
+	ar -r libmnblas.a copy.o swap.o dot.o axpy.o asum.o complexe.o
 	cp libmnblas.a $(LIB_DIR)
 
 # Bibliothèque dynamique
 
-libmnblasdyn.so:copy.o swap.o dot.o axpy.o complexe.o
+libmnblasdyn.so:copy.o swap.o dot.o axpy.o asum.o complexe.o
 	rm -f libmnblasdyn.so $(LIB_DIR)/libmnblasdyn.so
-	gcc -shared -o libmnblasdyn.so copy.o swap.o dot.o axpy.o complexe.o
+	gcc -shared -o libmnblasdyn.so copy.o swap.o dot.o axpy.o asum.o complexe.o
 	cp libmnblasdyn.so $(LIB_DIR)
 
 complexe.o: $(INC_DIR)/complexe.h complexe.c
@@ -38,6 +38,9 @@ dot.o : dot.c $(INC_DIR)/mnblas.h
 
 axpy.o : axpy.c $(INC_DIR)/mnblas.h
 	gcc  $(OPTIONS) -c axpy.c
+
+asum.o : asum.c $(INC_DIR)/mnblas.h
+	gcc  $(OPTIONS) -c asum.c
 
 # BLAS 2
 

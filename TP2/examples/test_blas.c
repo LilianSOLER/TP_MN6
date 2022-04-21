@@ -6,7 +6,7 @@
 
 #include "flop.h"
 
-#define VECSIZE 10
+#define VECSIZE 4
 // #define VECSIZE 10
 
 #define NB_FOIS 10
@@ -140,6 +140,10 @@ void test(int type, int fonction)
       case 4:
         mnblas_saxpy(VECSIZE, 2.0, vec1, 1, vec2, 1);
         break;
+      case 5:
+        res_float = mnblas_sasum(VECSIZE, vec1, 1);
+        printf("%f\n", res_float);
+        break;
       }
       vector_print(vec1);
       vector_print(vec2);
@@ -164,6 +168,10 @@ void test(int type, int fonction)
       case 4:
         mnblas_daxpy(VECSIZE, 2.0, vec1d, 1, vec2d, 1);
         break;
+      case 5:
+        res_double = mnblas_dasum(VECSIZE, vec1d, 1);
+        printf("%lf\n", res_double);
+        break;
       }
       vector_print_double(vec1d);
       vector_print_double(vec2d);
@@ -179,9 +187,13 @@ void test(int type, int fonction)
       case 2:
         mncblas_ccopy(VECSIZE, vec1cf, 1, vec2cf, 1);
         break;
-      case 3:
-        mncblas_cdotc_sub(VECSIZE, vec1cf, 1, vec2cf, 1, &res_comp_float);
+      // case 3:
+      //   mncblas_cdotc_sub(VECSIZE, vec1cf, 1, vec2cf, 1, &res_comp_float);
         // printf("%lf + %lf i\n", res_comp_float.real, res_comp_float.imaginary);
+        break;
+      case 5:
+        res_float = mnblas_scasum(VECSIZE, vec1cf, 1);
+        printf("%f\n", res_float);
         break;
       }
       vector_print_comp_float(vec1cf);
@@ -197,6 +209,10 @@ void test(int type, int fonction)
         break;
       case 2:
         mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
+        break;
+      case 5:
+        res_double = mnblas_dzasum(VECSIZE, vec1cd, 1);
+        printf("%lf\n", res_double);
         break;
       }
       vector_print_comp_double(vec1cd);
@@ -265,6 +281,12 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_saxpy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 5:
+        start_tsc = _rdtsc();
+        mnblas_sasum(VECSIZE, vec1, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_sasum", VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -297,6 +319,12 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_daxpy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 5:
+        start_tsc = _rdtsc();
+        mnblas_dasum(VECSIZE, vec1d, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_dasum", VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -317,6 +345,12 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mncblas_ccopy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 5:
+        start_tsc = _rdtsc();
+        mnblas_scasum(VECSIZE, vec1cf, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_scasum", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -336,6 +370,12 @@ void perf(int type, int fonction)
         mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
         end_tsc = _rdtsc();
         calcul_flop_tsc("mncblas_zcopy", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
+      case 5:
+        start_tsc = _rdtsc();
+        mnblas_dzasum(VECSIZE, vec1cd, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_dzasum", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -358,6 +398,7 @@ void print_usage()
   printf("           2 -> copy\n");
   printf("           3 -> dot\n");
   printf("           4 -> axpy\n");
+  printf("           5 -> asum\n");
   exit(1);
 }
 
@@ -406,6 +447,10 @@ void launch_things(int *type, int *fonction, int argc, char *argv[])
     else if (strcmp(argv[3], "axpy") == 0)
     {
       *fonction = 4;
+    }
+    else if (strcmp(argv[3], "asum") == 0)
+    {
+      *fonction = 5;
     }
     else
     {

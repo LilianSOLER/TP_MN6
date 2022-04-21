@@ -1,0 +1,12 @@
+residu_tsc = 90 cycles 
+mnblas_scasum 8 operations 840 cycles Performance 0.025 GFLOP/s
+mnblas_scasum 8 operations 150 cycles Performance 0.139 GFLOP/s
+mnblas_scasum 8 operations 90 cycles Performance 0.231 GFLOP/s
+mnblas_scasum 8 operations 60 cycles Performance 0.347 GFLOP/s
+mnblas_scasum 8 operations 90 cycles Performance 0.231 GFLOP/s
+mnblas_scasum 8 operations 90 cycles Performance 0.231 GFLOP/s
+mnblas_scasum 8 operations 120 cycles Performance 0.173 GFLOP/s
+mnblas_scasum 8 operations 60 cycles Performance 0.347 GFLOP/s
+mnblas_scasum 8 operations 150 cycles Performance 0.139 GFLOP/s
+mnblas_scasum 8 operations 90 cycles Performance 0.231 GFLOP/s
+==========================================================
