@@ -113,6 +113,7 @@ void test(int type, int fonction)
 {
   float res_float = 0;
   double res_double = 0;
+  complexe_float_t res_comp_float;
   printf("Test\n");
   srand(time(NULL));
   for (int i = 0; i < NB_FOIS; i++)
@@ -136,6 +137,9 @@ void test(int type, int fonction)
         res_float = mncblas_sdot(VECSIZE, vec1, 1, vec2, 1);
         printf("%f\n", res_float);
         break;
+      case 4:
+        mnblas_saxpy(VECSIZE, 2.0, vec1, 1, vec2, 1);
+        break;
       }
       vector_print(vec1);
       vector_print(vec2);
@@ -157,6 +161,9 @@ void test(int type, int fonction)
         res_double = mncblas_ddot(VECSIZE, vec1d, 1, vec2d, 1);
         printf("%lf\n", res_double);
         break;
+      case 4:
+        mnblas_daxpy(VECSIZE, 2.0, vec1d, 1, vec2d, 1);
+        break;
       }
       vector_print_double(vec1d);
       vector_print_double(vec2d);
@@ -171,6 +178,10 @@ void test(int type, int fonction)
         break;
       case 2:
         mncblas_ccopy(VECSIZE, vec1cf, 1, vec2cf, 1);
+        break;
+      case 3:
+        mncblas_cdotc_sub(VECSIZE, vec1cf, 1, vec2cf, 1, &res_comp_float);
+        // printf("%lf + %lf i\n", res_comp_float.real, res_comp_float.imaginary);
         break;
       }
       vector_print_comp_float(vec1cf);
@@ -248,6 +259,12 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mncblas_sdot", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 4:
+        start_tsc = _rdtsc();
+        mnblas_saxpy(VECSIZE, 2.0, vec1, 1, vec2, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_saxpy", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -273,6 +290,12 @@ void perf(int type, int fonction)
         mncblas_ddot(VECSIZE, vec1d, 1, vec2d, 1);
         end_tsc = _rdtsc();
         calcul_flop_tsc("mncblas_ddot", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
+      case 4:
+        start_tsc = _rdtsc();
+        mnblas_daxpy(VECSIZE, 2.0, vec1d, 1, vec2d, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_daxpy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -334,6 +357,7 @@ void print_usage()
   printf("fonction : 1 -> swap\n");
   printf("           2 -> copy\n");
   printf("           3 -> dot\n");
+  printf("           4 -> axpy\n");
   exit(1);
 }
 
@@ -378,6 +402,10 @@ void launch_things(int *type, int *fonction, int argc, char *argv[])
     else if (strcmp(argv[3], "dot") == 0)
     {
       *fonction = 3;
+    }
+    else if (strcmp(argv[3], "axpy") == 0)
+    {
+      *fonction = 4;
     }
     else
     {

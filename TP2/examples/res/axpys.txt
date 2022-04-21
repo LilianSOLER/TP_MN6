@@ -1,0 +1,12 @@
+residu_tsc = 60 cycles 
+mnblas_saxpy 20 operations 1680 cycles Performance 0.031 GFLOP/s
+mnblas_saxpy 20 operations 270 cycles Performance 0.193 GFLOP/s
+mnblas_saxpy 20 operations 120 cycles Performance 0.433 GFLOP/s
+mnblas_saxpy 20 operations 120 cycles Performance 0.433 GFLOP/s
+mnblas_saxpy 20 operations 150 cycles Performance 0.347 GFLOP/s
+mnblas_saxpy 20 operations 150 cycles Performance 0.347 GFLOP/s
+mnblas_saxpy 20 operations 120 cycles Performance 0.433 GFLOP/s
+mnblas_saxpy 20 operations 120 cycles Performance 0.433 GFLOP/s
+mnblas_saxpy 20 operations 120 cycles Performance 0.433 GFLOP/s
+mnblas_saxpy 20 operations 120 cycles Performance 0.433 GFLOP/s
+==========================================================
