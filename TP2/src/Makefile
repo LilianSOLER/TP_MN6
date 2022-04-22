@@ -17,7 +17,7 @@ libmnblas.a: copy.o swap.o dot.o axpy.o asum.o iamin.o iamax.o nrm2.o complexe.o
 
 # Bibliothèque dynamique
 
-libmnblasdyn.so:copy.o swap.o dot.o axpy.o asum.o iamin.o nrm2.o complexe.o
+libmnblasdyn.so:copy.o swap.o dot.o axpy.o asum.o iamin.o iamax.o nrm2.o complexe.o
 	rm -f libmnblasdyn.so $(LIB_DIR)/libmnblasdyn.so
 	gcc -shared -o libmnblasdyn.so copy.o swap.o dot.o axpy.o asum.o iamin.o iamax.o nrm2.o complexe.o
 	cp libmnblasdyn.so $(LIB_DIR)
