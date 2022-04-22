@@ -307,6 +307,18 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_sasum", VECSIZE, end_tsc - start_tsc);
         break;
+      case 6:
+        start_tsc = _rdtsc();
+        mnblas_isamin(VECSIZE, vec1, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_isamin", VECSIZE, end_tsc - start_tsc);
+        break;
+      case 7:
+        start_tsc = _rdtsc();
+        mnblas_isamax(VECSIZE, vec1, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_isamax", VECSIZE, end_tsc - start_tsc);
+        break;
       case 8:
         start_tsc = _rdtsc();
         mnblas_snrm2(VECSIZE, vec1, 1);
@@ -351,6 +363,18 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_dasum", VECSIZE, end_tsc - start_tsc);
         break;
+      case 6:
+        start_tsc = _rdtsc();
+        mnblas_idamin(VECSIZE, vec1d, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_idamin", VECSIZE, end_tsc - start_tsc);
+        break;
+      case 7:
+        start_tsc = _rdtsc();
+        mnblas_idamax(VECSIZE, vec1d, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_idamax", VECSIZE, end_tsc - start_tsc);
+        break;
       case 8:
         start_tsc = _rdtsc();
         mnblas_dnrm2(VECSIZE, vec1d, 1);
@@ -382,6 +406,18 @@ void perf(int type, int fonction)
         mnblas_scasum(VECSIZE, vec1cf, 1);
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_scasum", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
+      case 6:
+        start_tsc = _rdtsc();
+        mnblas_icamin(VECSIZE, vec1cf, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_icamin", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
+      case 7:
+        start_tsc = _rdtsc();
+        mnblas_icamax(VECSIZE, vec1cf, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_icamax", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       case 8:
         start_tsc = _rdtsc();
@@ -415,6 +451,18 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_dzasum", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 6:
+        start_tsc = _rdtsc();
+        mnblas_izamin(VECSIZE, vec1cd, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_izamin", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
+      case 7:
+        start_tsc = _rdtsc();
+        mnblas_izamax(VECSIZE, vec1cd, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_izamax", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
       case 8:
         start_tsc = _rdtsc();
         mnblas_dznrm2(VECSIZE, vec1cd, 1);
@@ -443,6 +491,8 @@ void print_usage()
   printf("           3 -> dot\n");
   printf("           4 -> axpy\n");
   printf("           5 -> asum\n");
+  printf("           6 -> iamin\n");
+  printf("           7 -> iamax\n");
   printf("           8 -> nrm2\n");
   exit(1);
 }
@@ -496,6 +546,14 @@ void launch_things(int *type, int *fonction, int argc, char *argv[])
     else if (strcmp(argv[3], "asum") == 0)
     {
       *fonction = 5;
+    }
+    else if (strcmp(argv[3], "iamin") == 0)
+    {
+      *fonction = 6;
+    }
+    else if (strcmp(argv[3], "iamax") == 0)
+    {
+      *fonction = 7;
     }
     else if (strcmp(argv[3], "nrm2") == 0)
     {
