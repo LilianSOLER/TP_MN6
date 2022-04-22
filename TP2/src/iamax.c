@@ -2,7 +2,7 @@
 #include "mnblas.h"
 #include "complexe.h"
 
-int mnblas_isamax(const int N, const float *X, const int incX){
+CBLAS_INDEX mnblas_isamax(const int N, const float *X, const int incX){
     int imax;
     float max;
     if (N < 1){
@@ -21,7 +21,7 @@ int mnblas_isamax(const int N, const float *X, const int incX){
     return imax;
 }
 
-int mnblas_idamax(const int N, const double *X, const int incX){
+CBLAS_INDEX mnblas_idamax(const int N, const double *X, const int incX){
     int imax;
     double max;
     if (N < 1){
@@ -40,7 +40,7 @@ int mnblas_idamax(const int N, const double *X, const int incX){
     return imax;
 }
 
-int mnblas_icamax(const int N, const void *X, const int incX){
+CBLAS_INDEX mnblas_icamax(const int N, const void *X, const int incX){
     int imax;
     float max, temp;
     if (N < 1){
@@ -62,7 +62,7 @@ int mnblas_icamax(const int N, const void *X, const int incX){
     return imax;
 }
 
-int mnblas_izamax(const int N, const void *X, const int incX){
+CBLAS_INDEX mnblas_izamax(const int N, const void *X, const int incX){
     int imax;
     double max, temp;
     if (N < 1){

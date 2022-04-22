@@ -2,7 +2,7 @@
 #include "mnblas.h"
 #include "complexe.h"
 
-int mnblas_isamin(const int N, const float *X, const int incX){
+CBLAS_INDEX mnblas_isamin(const int N, const float *X, const int incX){
     int imin;
     float min;
     if (N < 1){
@@ -21,7 +21,7 @@ int mnblas_isamin(const int N, const float *X, const int incX){
     return imin;
 }
 
-int mnblas_idamin(const int N, const double *X, const int incX){
+CBLAS_INDEX mnblas_idamin(const int N, const double *X, const int incX){
     int imin;
     double min;
     if (N < 1){
@@ -40,7 +40,7 @@ int mnblas_idamin(const int N, const double *X, const int incX){
     return imin;
 }
 
-int mnblas_icamin(const int N, const void *X, const int incX){
+CBLAS_INDEX mnblas_icamin(const int N, const void *X, const int incX){
     int imin;
     float min, temp;
     if (N < 1){
@@ -62,7 +62,7 @@ int mnblas_icamin(const int N, const void *X, const int incX){
     return imin;
 }
 
-int mnblas_izamin(const int N, const void *X, const int incX){
+CBLAS_INDEX mnblas_izamin(const int N, const void *X, const int incX){
     int imin;
     double min, temp;
     if (N < 1){
