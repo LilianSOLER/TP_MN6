@@ -20,6 +20,10 @@ vfloat vec1, vec2;
 vdouble vec1d, vec2d;
 vcomp_double vec1cd, vec2cd;
 vcomp_float vec1cf, vec2cf;
+complexe_float_t tmpc = {2.0, 0.0};
+complexe_double_t tmpz = {2.0, 0.0};
+
+
 
 void vector_init(vfloat V, float x)
 {
@@ -201,6 +205,9 @@ void test(int type, int fonction)
       //   mncblas_cdotc_sub(VECSIZE, vec1cf, 1, vec2cf, 1, &res_comp_float);
         // printf("%lf + %lf i\n", res_comp_float.real, res_comp_float.imaginary);
         break;
+        case 4:
+        mnblas_caxpy(VECSIZE, &tmpc, vec1cf, 1, vec2cf, 1);
+        break;
       case 5:
         res_float = mnblas_scasum(VECSIZE, vec1cf, 1);
         printf("%f\n", res_float);
@@ -225,6 +232,9 @@ void test(int type, int fonction)
         break;
       case 2:
         mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
+        break;
+        case 4:
+        mnblas_zaxpy(VECSIZE, &tmpz, vec1cd, 1, vec2cd, 1);
         break;
       case 5:
         res_double = mnblas_dzasum(VECSIZE, vec1cd, 1);
@@ -579,7 +589,7 @@ void launch_things(int *type, int *fonction, int argc, char *argv[])
 int main(int argc, char *argv[])
 {
   int type = 0;     // 1: float, 2: double, 3: complex float, 4: complex double
-  int fonction = 0; // 1: swap, 2: copy, 3: dot
+  int fonction = 0; // 1: swap, 2: copy, 3: dot 4:axpy 5:asum 6:iamin 7:iamax 8:nrm2
 
   launch_things(&type, &fonction, argc, argv);
 }
