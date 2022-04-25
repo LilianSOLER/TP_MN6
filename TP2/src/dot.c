@@ -1,23 +1,9 @@
 #include "mnblas.h"
 #include <stdio.h>
 #include "complexe.h"
+#include <math.h>
 
-/*
-float mncblas_sdot(const int N, const float *X, const int incX, 
-                 const float *Y, const int incY)
-{
-  register unsigned int i = 0 ;
-  register unsigned int j = 0 ;
-  register float dot = 0.0 ;
-  
-  for (; ((i < N) && (j < N)) ; i += incX, j+=incY)
-    {
-      dot = dot + X [i] * Y [j] ;
-    }
 
-  return dot ;
-}
-*/
 
 float mncblas_sdot(const int N, const float *X, const int incX, 
                  const float *Y, const int incY)
@@ -25,13 +11,17 @@ float mncblas_sdot(const int N, const float *X, const int incX,
  // register unsigned int i = 0 , j = 0 ;
   float dot = 0.0 ;
 
-//#pragma omp parallel for reduction(+:dot)  
-  for (unsigned int i=0,j=0 ;(i < N) && (j < N); i += incX, j += incY)
+  /*for (unsigned int i=0,j=0 ;(i < N) && (j < N); i += incX, j += incY)
     {
       dot += X [i] * Y [j] ;
-    }
-
-  return dot ;
+    } //on a changer pour open MP toutes les fonctions
+*/
+const int max = (incX < incY) ? ceil((float)N/(float)incY) : ceil((float)N/(float)incX);
+  const int diff = (incY - incX + 1);
+//#pragma omp parallel for reduction(+:dot)
+  for (register unsigned int i = 0 ; i < max ; i++)
+    dot += X [i] * Y [diff*i];
+  return dot;
 }
 
 double mncblas_ddot(const int N, const double *X, const int incX, 
@@ -40,13 +30,16 @@ double mncblas_ddot(const int N, const double *X, const int incX,
   //register unsigned int i = 0, j = 0 ;
   double dot = 0.0 ;
 
-  //#pragma omp parallel for reduction(+:dot)
-  for (unsigned int i=0,j=0 ;(i < N) && (j < N); i += incX, j += incY)
+/*  for (unsigned int i=0,j=0 ;(i < N) && (j < N); i += incX, j += incY)
     {
       dot += X [i] * Y [j] ;
     }
-
-  return dot ;
+*/const int max = (incX < incY) ? ceil((float)N/(float)incY) : ceil((float)N/(float)incX);
+  const int diff = (incY - incX + 1);
+//#pragma omp parallel for reduction(+:dot)
+  for (register unsigned int i = 0 ; i < max ; i++)
+    dot += X [i] * Y [diff*i];
+  return dot;
 }
 
 void   mncblas_cdotu_sub(const int N, const void *X, const int incX,
@@ -65,15 +58,25 @@ void   mncblas_cdotc_sub(const int N, const void *X, const int incX,
   complexe_float_t *Y_tmp = (complexe_float_t *)Y;
   complexe_float_t *dotc_tmp = (complexe_float_t *)dotc;
 
-  //#pragma omp parallel for private(tmp) reduction(+:dotreal) reduction(+:dotimaginary) 
-  for (unsigned int i=0,j=0 ; (i < N) && (j < N); i += incX, j += incY)
+  //#pragma omp parallel for private(tmp) 
+  /*for (unsigned int i=0,j=0 ; (i < N) && (j < N); i += incX, j += incY)
     {
       dotc_tmp[j].real = X_tmp[i].real * Y_tmp[j].real - X_tmp[i].imaginary * Y_tmp[j].imaginary ;
       dotc_tmp[j].imaginary = X_tmp[i].real * Y_tmp[j].imaginary + X_tmp[i].imaginary * Y_tmp[j].real ;
     }
   dotc = (void *)dotc_tmp;
+  */ const int max = (incX < incY) ? ceil((float)N/(float)incY) : ceil((float)N/(float)incX);
+  const int diff = (incY - incX + 1);
+//#pragma omp parallel for private(Y_tmp) 
+  for (register unsigned int i = 0 ; i < max ; i++) {
+    dotc_tmp[diff*i].real = X_tmp[i].real * Y_tmp[diff*i].real - X_tmp[i].imaginary * Y_tmp[diff*i].imaginary ;
+      dotc_tmp[diff*i].imaginary = X_tmp[i].real * Y_tmp[diff*i].imaginary + X_tmp[i].imaginary * Y_tmp[diff*i].real ;
+  }
+    dotc = (void *)dotc_tmp;
+
   return ;
 }
+
 
 void   mncblas_zdotu_sub(const int N, const void *X, const int incX,
                        const void *Y, const int incY, void *dotu)
