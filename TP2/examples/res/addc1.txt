@@ -1,0 +1,4 @@
+residu_micro = 0.000000e+00
+c1.r 4.000000 c&.i 8.000000
+apres boucle cd1.real 12810.000000 cd1.imaginary 16391.000000 duree 0.000001 
+calcul complexe add  1024 operations duree 0.0000010 seconde  Performance 1.024 GFLOP/s

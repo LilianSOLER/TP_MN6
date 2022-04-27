@@ -39,13 +39,13 @@ void basic_main(){
 
   printf("apres boucle cd1.real %f cd1.imaginary %f duree %f \n", cd1.real, cd1.imaginary, tdiff_micro(&start, &end));
 
-  calcul_flop_micro("calcul complexe ", NB_FOIS * 2, tdiff_micro(&start, &end));
+  calcul_flop_micro("calcul complexe add ", NB_FOIS * 2, tdiff_micro(&start, &end));
   exit(0);
 }
 
 int main(int argc, char **argv)
 {
   srand(time(NULL));
-  // basic_main();
-  test_div_float();
+  basic_main();
+  //test_div_float();
 }

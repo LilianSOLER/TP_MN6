@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 
   init_flop_micro();
 
-  c1 = div_complexe_float(c1, c2);
+  c1 = add_complexe_float(c1, c2);
 
   printf("c1.r %f c1.i %f\n", c1.real, c1.imaginary);
 
@@ -31,13 +31,13 @@ int main(int argc, char **argv)
 
   for (i = 0; i < NB_FOIS; i++)
   {
-    cd1 = div_complexe_double(cd1, cd2);
+    cd1 = add_complexe_double(cd1, cd2);
   }
 
   TOP_MICRO(end);
 
   printf("apres boucle cd1.real %f cd1.imaginary %f %f \n", cd1.real, cd1.imaginary, tdiff_micro(&start, &end));
 
-  calcul_flop_micro("calcul complexe ", NB_FOIS * 2, tdiff_micro(&start, &end));
+  calcul_flop_micro("calcul complexe add ", NB_FOIS * 2, tdiff_micro(&start, &end));
   exit(0);
 }
