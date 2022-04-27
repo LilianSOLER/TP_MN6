@@ -119,6 +119,9 @@ void test(int type, int fonction)
   float res_float = 0;
   double res_double = 0;
   complexe_float_t res_comp_float;
+  complexe_float_t res_comp_float2;
+  complexe_double_t res_comp_double;
+  complexe_double_t res_comp_double2;
   printf("Test\n");
   srand(time(NULL));
   for (int i = 0; i < NB_FOIS; i++)
@@ -202,9 +205,9 @@ void test(int type, int fonction)
       case 2:
         mncblas_ccopy(VECSIZE, vec1cf, 1, vec2cf, 1);
         break;
-      // case 3:
-      //   mncblas_cdotc_sub(VECSIZE, vec1cf, 1, vec2cf, 1, &res_comp_float);
-        // printf("%lf + %lf i\n", res_comp_float.real, res_comp_float.imaginary);
+      case 3:
+        mncblas_cdotc_sub(VECSIZE, vec1cf, 1, vec2cf, 1, &res_comp_float);
+        printf("%lf + %lf i\n", res_comp_float.real, res_comp_float.imaginary);
         break;
         case 4:
         mnblas_caxpy(VECSIZE, &tmpc, vec1cf, 1, vec2cf, 1);
@@ -234,6 +237,12 @@ void test(int type, int fonction)
       case 2:
         mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
         break;
+      case 3:
+        mncblas_zdotc_sub(VECSIZE, vec1cd, 1, vec2cd, 1, &res_comp_double);
+        printf("%lf + %lf i\n", res_comp_double.real, res_comp_double.imaginary);
+        mncblas_zdotu_sub(VECSIZE, vec1cd, 1, vec2cd, 1, &res_comp_double2);
+        printf("%lf + %lf i\n", res_comp_double2.real, res_comp_double2.imaginary);
+        break;
         case 4:
         mnblas_zaxpy(VECSIZE, &tmpz, vec1cd, 1, vec2cd, 1);
         break;
@@ -258,6 +267,8 @@ void test(int type, int fonction)
 void perf(int type, int fonction)
 {
   unsigned long long int start_tsc, end_tsc;
+  complexe_float_t res_comp_float;
+  complexe_double_t res_comp_double;
 
   init_flop_tsc();
 
@@ -412,6 +423,12 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mncblas_ccopy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 3:
+        start_tsc = _rdtsc();
+        mncblas_cdotc_sub(VECSIZE, vec1cf, 1, vec2cf, 1, &res_comp_float);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_cdotc", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
       case 5:
         start_tsc = _rdtsc();
         mnblas_scasum(VECSIZE, vec1cf, 1);
@@ -455,6 +472,12 @@ void perf(int type, int fonction)
         mncblas_zcopy(VECSIZE, vec1cd, 1, vec2cd, 1);
         end_tsc = _rdtsc();
         calcul_flop_tsc("mncblas_zcopy", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
+      case 3:
+        start_tsc = _rdtsc();
+        mncblas_zdotu_sub(VECSIZE, vec1cd, 1, vec2cd, 1, &res_comp_double);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_zdotu", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       case 5:
         start_tsc = _rdtsc();
