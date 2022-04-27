@@ -24,13 +24,20 @@ vcomp_double vec1cd, vec2cd;
 vcomp_float vec1cf, vec2cf;
 complexe_float_t tmpc = {2.0, 0.0};
 complexe_double_t tmpz = {2.0, 0.0};
+float alphaf = 2.0;
+float betaf = 2.0;
+int M = 3;
+int N = 4;
+int K = 4;
+float alphad = 2.0;
+float betad = 2.0;
 
 
 
 void vector_init(vfloat V, float x)
 {
   register unsigned int i;
-
+  
   for (i = 0; i < VECSIZE; i++)
     V[i] = x;
 
@@ -267,6 +274,147 @@ void test(int type, int fonction)
 
 void perf(int type, int fonction)
 {
+  float *fA = malloc(sizeof(float *) * 12);
+  float *fx = malloc(sizeof(float *) * 4);
+  float *fy = malloc(sizeof(float *) * 3);
+ 
+
+   double *dA = malloc(sizeof(double *) * 12);
+    double *dx = malloc(sizeof(double *) * 4);
+    double *dy = malloc(sizeof(double *) * 3);
+   
+  float enter = 1.0;
+
+    for (int i = 0; i < 12; i++)
+    {
+        fA[i] = enter;
+        enter++;
+    }
+
+    enter = 1.0;
+
+    for (int i = 0; i < 4; i++)
+    {
+        fx[i] = enter;
+        enter++;
+    }
+
+    enter = 1.0;
+
+    for (int i = 0; i < 3; i++)
+    {
+        fy[i] = enter;
+        enter++;
+    }
+    double enterd = 1.0;
+
+    for (int i = 0; i < 12; i++)
+    {
+        dA[i] = enterd;
+        enterd++;
+    }
+
+    enterd = 1.0;
+
+    for (int i = 0; i < 4; i++)
+    {
+        dx[i] = enterd;
+        enterd++;
+    }
+
+    enterd = 1.0;
+
+    for (int i = 0; i < 3; i++)
+    {
+        dy[i] = enterd;
+        enterd++;
+    }
+
+    complexe_float_t *cfA = malloc(sizeof(complexe_float_t *) * 12);
+    complexe_float_t *cfx = malloc(sizeof(complexe_float_t *) * 4);
+    complexe_float_t *cfy = malloc(sizeof(complexe_float_t *) * 3);
+
+    complexe_double_t *cdA = malloc(sizeof(double *) * 24);
+    complexe_double_t *cdx = malloc(sizeof(double *) * 8);
+    complexe_double_t *cdy = malloc(sizeof(double *) * 6);
+
+
+    complexe_float_t *alphacf = malloc(sizeof(complexe_float_t *));
+    complexe_float_t *betacf = malloc(sizeof(complexe_float_t *));
+    complexe_double_t *alphacd = malloc(sizeof(double *) * 2);
+    complexe_double_t *betacd = malloc(sizeof(double *) * 2);
+    complexe_float_t entercf = {1.0, 1.0};
+
+    for (int i = 0; i < 12; i++)
+    {
+        cfA[i].real = entercf.real;
+        cfA[i].imaginary = entercf.imaginary;
+        entercf.real++;
+        entercf.imaginary++;
+    }
+
+    entercf.real = 1.0;
+    entercf.imaginary = 1.0;
+
+    for (int i = 0; i < 4; i++)
+    {
+        cfx[i].real = entercf.real;
+        cfx[i].imaginary = entercf.imaginary;
+        entercf.real++;
+        entercf.imaginary++;
+    }
+
+    entercf.real = 1.0;
+    entercf.imaginary = 1.0;
+
+    for (int i = 0; i < 3; i++)
+    {
+        cfy[i].real = entercf.real;
+        cfy[i].imaginary = entercf.imaginary;
+        entercf.real++;
+        entercf.imaginary++;
+    }
+
+    alphacf[0].real = 2.0;
+    alphacf[0].imaginary = 2.0;
+    betacf[0].real = 2.0;
+    betacf[0].imaginary = 2.0;
+    complexe_double_t entercd = {1.0, 1.0};
+
+    for (int i = 0; i < 12; i++)
+    {
+        cdA[i].real = entercd.real;
+        cdA[i].imaginary = entercd.imaginary;
+        entercd.real++;
+        entercd.imaginary++;
+    }
+
+    entercd.real = 1.0;
+    entercd.imaginary = 1.0;
+
+    for (int i = 0; i < 4; i++)
+    {
+        cdx[i].real = entercd.real;
+        cdx[i].imaginary = entercd.imaginary;
+        entercd.real++;
+        entercd.imaginary++;
+    }
+
+    entercd.real = 1.0;
+    entercd.imaginary = 1.0;
+
+    for (int i = 0; i < 3; i++)
+    {
+        cdy[i].real = entercd.real;
+        cdy[i].imaginary = entercd.imaginary;
+        entercd.real++;
+        entercd.imaginary++;
+    }
+
+    alphacd[0].real = 2.0;
+    alphacd[0].imaginary = 2.0;
+    betacd[0].real = 2.0;
+    betacd[0].imaginary = 2.0;
   unsigned long long int start_tsc, end_tsc;
   complexe_float_t res_comp_float;
   complexe_double_t res_comp_double;
@@ -348,6 +496,17 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_snrm2", VECSIZE, end_tsc - start_tsc);
         break;
+      case 9:
+        start_tsc = _rdtsc();
+        mncblas_sgemv(101,111,M,N,alphaf,fA,0,fx,1,betaf,fy, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_sgemv", VECSIZE, end_tsc - start_tsc);
+        break;
+      case 10:
+        start_tsc = _rdtsc();
+        mncblas_sgemm(101, 111, 111, M, N, K, alphaf, fA, 0, fx, 0, betaf, fy, 0);        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_sgemm", VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -403,6 +562,17 @@ void perf(int type, int fonction)
         mnblas_dnrm2(VECSIZE, vec1d, 1);
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_dnrm2", VECSIZE, end_tsc - start_tsc);
+        break;
+      case 9:
+        start_tsc = _rdtsc();
+        mncblas_dgemv(101, 111, M, N, alphad, dA, 0, dx, 1, betad, dy, 1);    
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_sgemv", VECSIZE, end_tsc - start_tsc);
+        break;
+      case 10:
+        start_tsc = _rdtsc();
+        mncblas_dgemm(101, 111, 111, M, N, K, alphad, dA, 0, dx, 0, betad, dy, 0);        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_dgemm", VECSIZE, end_tsc - start_tsc);
         break;
       default:
         printf("Error\n");
@@ -465,6 +635,17 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_scnrm2", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 9:
+        start_tsc = _rdtsc();
+        mncblas_cgemv(101, 111, M, N, alphacf, cfA, 0, cfx, 1, betacf, cfy, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_cgemv", VECSIZE, end_tsc - start_tsc);
+        break;
+       case 10:
+        start_tsc = _rdtsc();
+        mncblas_cgemm(101, 111, 111, M, N, K, alphacf, cfA, 0, cfx, 0, betacf, cfy, 0);        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_cgemm", VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -526,6 +707,17 @@ void perf(int type, int fonction)
         end_tsc = _rdtsc();
         calcul_flop_tsc("mnblas_dznrm2", 2 * VECSIZE, end_tsc - start_tsc);
         break;
+      case 9:
+        start_tsc = _rdtsc();
+        mncblas_zgemv(101, 111, M, N, alphacd, cdA, 0, cdx, 1, betacd, cdy, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_zgemv", VECSIZE, end_tsc - start_tsc);
+        break;
+      case 10:
+        start_tsc = _rdtsc();
+        mncblas_zgemm(101, 111, 111, M, N, K, alphacd, cdA, 0, cdx, 0, betacd, cdy, 0);        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_zgemv", VECSIZE, end_tsc - start_tsc);
+        break;
       default:
         printf("Error\n");
         break;
@@ -552,6 +744,8 @@ void print_usage()
   printf("           7 -> iamax\n");
   printf("           8 -> nrm2\n");
   printf("           9 -> gemv\n");
+  printf("           10 -> gemm\n");
+
 
   exit(1);
 }
@@ -621,6 +815,10 @@ void launch_things(int *type, int *fonction, int argc, char *argv[])
     else if (strcmp(argv[3], "gemv") == 0)
     {
       *fonction = 9;
+    }
+    else if (strcmp(argv[3], "gemm") == 0)
+    {
+      *fonction = 10;
     }
     else
     {

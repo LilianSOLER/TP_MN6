@@ -11,11 +11,14 @@ void mnblas_saxpy(const int N, const float alpha, const float *X, const int incX
    return;
  */
   // on a changer pour open MP toutes les fonctions
+  
   const int max = (incX < incY) ? ceil((float)N / (float)incY) : ceil((float)N / (float)incX);
   const int diff = (incY - incX + 1);
   #pragma omp parallel for
-  for (register unsigned int i = 0; i < max; i++)
-    Y[diff * i] += alpha * X[i];
+  for (register unsigned int i = 0; i < max; i++){
+    Y[diff * i] += alpha * X[i];}
+    return;
+    
 }
 
 
@@ -27,19 +30,21 @@ void mnblas_daxpy(const int N, const double alpha, const double *X, const int in
       Y[j] += alpha * X[i];
     }
 
-    return;*/
+    return;
+    */
   const int max = (incX < incY) ? ceil((float)N / (float)incY) : ceil((float)N / (float)incX);
   const int diff = (incY - incX + 1);
   #pragma omp parallel for
-  for (register unsigned int i = 0; i < max; i++)
-    Y[diff * i] += alpha * X[i];
+  for (register unsigned int i = 0; i < max; i++){
+    Y[diff * i] += alpha * X[i];}
+    return;
+    
 }
 void mnblas_caxpy(const int N, const void *alpha, const void *X,
                   const int incX, void *Y, const int incY)
 {
   complexe_float_t *X_tmp = (complexe_float_t *)X;
   complexe_float_t *Y_tmp = (complexe_float_t *)Y;
-
   complexe_float_t *alpha_tmp = (complexe_float_t *)alpha;
   /*
     for (unsigned int i=0,j=0 ; ((i < N) && (j < N)); i += incX, j += incY)
@@ -56,7 +61,7 @@ void mnblas_caxpy(const int N, const void *alpha, const void *X,
     Y_tmp[diff * i].real += alpha_tmp->real * X_tmp[diff * i].real - alpha_tmp->imaginary * X_tmp[diff * i].imaginary;
     Y_tmp[diff * i].imaginary += alpha_tmp->real * X_tmp[diff * i].imaginary + alpha_tmp->imaginary * X_tmp[diff * i].real;
   }
-
+return;
 }
 void mnblas_zaxpy(const int N, const void *alpha, const void *X,
                   const int incX, void *Y, const int incY)
@@ -82,5 +87,5 @@ const int max = (incX < incY) ? ceil((float)N/(float)incY) : ceil((float)N/(floa
     Y_tmp[diff * i].real += alpha_tmp->real * X_tmp[diff * i].real - alpha_tmp->imaginary * X_tmp[diff * i].imaginary;
     Y_tmp[diff * i].imaginary += alpha_tmp->real * X_tmp[diff * i].imaginary + alpha_tmp->imaginary * X_tmp[diff * i].real;
   }
-  
+  return;
 }

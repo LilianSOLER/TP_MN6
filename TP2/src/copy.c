@@ -13,9 +13,9 @@ void mncblas_scopy(const int N, const float *X, const int incX,
   }*/ //on a changer pour open MP toutes les fonctions
   const int max = (incX < incY) ? ceil((float)N/(float)incY) : ceil((float)N/(float)incX);
   const int diff = (incY - incX + 1);
-//#pragma omp parallel for
-  for (register unsigned int i = 0; i < max ; i++)
-    Y [diff*i] = X [i];
+#pragma omp parallel for
+  for (register unsigned int i = 0; i < max ; i++){
+    Y [diff*i] = X [i];}
 
   return;
 }
@@ -30,9 +30,9 @@ void mncblas_dcopy(const int N, const double *X, const int incX,
   }*/
   const int max = (incX < incY) ? ceil((float)N/(float)incY) : ceil((float)N/(float)incX);
   const int diff = (incY - incX + 1);
-//#pragma omp parallel for
-  for (register unsigned int i = 0; i < max ; i++)
-    Y [diff*i] = X [i] ;
+#pragma omp parallel for
+  for (register unsigned int i = 0; i < max ; i++){
+    Y [diff*i] = X [i] ;}
 }
 
 
@@ -53,9 +53,11 @@ void mncblas_ccopy(const int N, const void *X, const int incX,
 
 const int max = (incX < incY) ? ceil((float)N/(float)incY) : ceil((float)N/(float)incX);
   const int diff = (incY - incX + 1);
-//#pragma omp parallel for
-  for (register unsigned int i = 0; i < max ; i++)
-    *(Y_tmp+diff*i) = *(X_tmp+i) ;
+#pragma omp parallel for
+  for (register unsigned int i = 0; i < max ; i++){
+  Y_tmp[diff*i].real = X_tmp[i].real;
+    Y_tmp[diff*i].imaginary = X_tmp[i].imaginary;
+    }
     }
 
 void mncblas_zcopy(const int N, const void *X, const int incX,
@@ -74,7 +76,9 @@ void mncblas_zcopy(const int N, const void *X, const int incX,
   Y=Y_tmp;*/
 const int max = (incX < incY) ? ceil((float)N/(float)incY) : ceil((float)N/(float)incX);
   const int diff = (incY - incX + 1);
-//#pragma omp parallel for
-  for (register unsigned int i = 0; i < max ; i++)
-    *(Y_tmp+diff*i) = *(X_tmp+i) ;
+#pragma omp parallel for
+  for (register unsigned int i = 0; i < max ; i++){
+    Y_tmp[diff*i].real = X_tmp[i].real;
+    Y_tmp[diff*i].imaginary = X_tmp[i].imaginary;
+    }
 }
