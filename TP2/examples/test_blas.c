@@ -17,6 +17,7 @@ typedef double vdouble[VECSIZE];
 typedef complexe_double_t vcomp_double[VECSIZE];
 typedef complexe_float_t vcomp_float[VECSIZE];
 
+
 vfloat vec1, vec2;
 vdouble vec1d, vec2d;
 vcomp_double vec1cd, vec2cd;
@@ -428,6 +429,17 @@ void perf(int type, int fonction)
         mncblas_cdotc_sub(VECSIZE, vec1cf, 1, vec2cf, 1, &res_comp_float);
         end_tsc = _rdtsc();
         calcul_flop_tsc("mncblas_cdotc", 2 * VECSIZE, end_tsc - start_tsc);
+        printf("puis mncblas_cdotu_sub");
+        start_tsc = _rdtsc();
+        mncblas_cdotu_sub(VECSIZE, vec1cf, 1, vec2cf, 1, &res_comp_float);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_cdotu", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
+      case 4:
+        start_tsc = _rdtsc();
+        mnblas_caxpy(VECSIZE, &tmpc, vec1cf, 1, vec2cf, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_caxpy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       case 5:
         start_tsc = _rdtsc();
@@ -475,9 +487,20 @@ void perf(int type, int fonction)
         break;
       case 3:
         start_tsc = _rdtsc();
+        mncblas_zdotc_sub(VECSIZE, vec1cd, 1, vec2cd, 1, &res_comp_double);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mncblas_zdotc", 2 * VECSIZE, end_tsc - start_tsc);
+        printf("puis mncblas_zdotu_sub");
+        start_tsc = _rdtsc();
         mncblas_zdotu_sub(VECSIZE, vec1cd, 1, vec2cd, 1, &res_comp_double);
         end_tsc = _rdtsc();
         calcul_flop_tsc("mncblas_zdotu", 2 * VECSIZE, end_tsc - start_tsc);
+        break;
+      case 4:
+        start_tsc = _rdtsc();
+        mnblas_zaxpy(VECSIZE, &tmpz, vec1cd, 1, vec2cd, 1);
+        end_tsc = _rdtsc();
+        calcul_flop_tsc("mnblas_zaxpy", 2 * VECSIZE, end_tsc - start_tsc);
         break;
       case 5:
         start_tsc = _rdtsc();
@@ -528,6 +551,8 @@ void print_usage()
   printf("           6 -> iamin\n");
   printf("           7 -> iamax\n");
   printf("           8 -> nrm2\n");
+  printf("           9 -> gemv\n");
+
   exit(1);
 }
 
@@ -593,6 +618,10 @@ void launch_things(int *type, int *fonction, int argc, char *argv[])
     {
       *fonction = 8;
     }
+    else if (strcmp(argv[3], "gemv") == 0)
+    {
+      *fonction = 9;
+    }
     else
     {
       print_usage();
@@ -613,7 +642,7 @@ void launch_things(int *type, int *fonction, int argc, char *argv[])
 int main(int argc, char *argv[])
 {
   int type = 0;     // 1: float, 2: double, 3: complex float, 4: complex double
-  int fonction = 0; // 1: swap, 2: copy, 3: dot 4:axpy 5:asum 6:iamin 7:iamax 8:nrm2
+  int fonction = 0; // 1: swap, 2: copy, 3: dot 4:axpy 5:asum 6:iamin 7:iamax 8:nrm2 9:gemv
 
   launch_things(&type, &fonction, argc, argv);
 }
